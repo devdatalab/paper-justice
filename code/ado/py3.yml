@@ -1,0 +1,23 @@
+name: py3
+channels:
+  - anaconda
+  - conda-forge
+  - defaults
+dependencies:
+  - beautifulsoup4=4.9.0
+  - bokeh=2.1
+  - git=2.23
+  - jupyter=1.0.0
+  - keras=2.3
+  - conda-forge::lxml=4.5
+  - matplotlib=3.2.1
+  - numpy=1.17.2
+  - pandas=1.0.3
+  - pip=20.0.2
+  - python=3.7.4
+  - requests=2.23.0
+  - scikit-learn=0.22.2
+  - selenium=3.141.0
+  - simplejson=3.17
+  - urllib3=1.24.3
+  - xdoctest=0.11

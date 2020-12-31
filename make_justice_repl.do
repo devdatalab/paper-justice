@@ -77,11 +77,14 @@ do $jcode/a/summary_stats.do
 /* Fig 1 in paper */
 shell python $jcode/a/py/make_gender_coefplot.py
 shell python $jcode/a/py/make_gender_coefplot2.py
-shell python $jcode/a/py/make_religion_coef.py
-shell python $jcode/a/py/make_religion_coef2.py
+shell python $jcode/a/py/make_religion_coefplot.py
+shell python $jcode/a/py/make_religion_coefplot2.py
 
-/* Tables 5, 6, A6, A7, A8, A9: RCT results */
-do $jcode/a/tables_rct.do
+/* Tables 5, A6, A8: RCT gender results */
+do $jcode/a/tables_rct_gender.do
+
+/* Tables 6, A7, A9: RCT religion results */
+do $jcode/a/tables_rct_religion.do
 
 /* Table 7, and Figs 2 & 3: Event study tables & figures */
 do $jcode/a/event_study_analysis.do

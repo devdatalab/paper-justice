@@ -22,14 +22,14 @@ prog def run_gender
   di %15s " " %20s "f judge -> m def" 
   foreach y in $ovars {
     qui {
-      qui reghdfe `y' judge_female def_muslim if lm_gender == 1 & def_female == 0, absorb(loc_month acts) cluster(judge)
+      qui reghdfe `y' judge_female def_muslim if def_female == 0, absorb(loc_month acts) cluster(judge)
       estimates store `y'_lm
 
       /* store N */
       local obs `e(N)'
 
       /* store control mean */
-      sum `y' if def_female == 0 & lm_gender == 1 & judge_female == 0 & e(sample) == 1
+      sum `y' if def_female == 0 & judge_female == 0 & e(sample) == 1
       local cont: di %6.3f `r(mean)'
       local cont_est `cont'
       
@@ -67,14 +67,14 @@ prog def run_gender
 
     /* repeat with loc_year spec */
     qui {
-      qui reghdfe `y' judge_female def_muslim if ly_gender == 1 & def_female == 0, absorb(loc_year acts) cluster(judge)
+      qui reghdfe `y' judge_female def_muslim if  def_female == 0, absorb(loc_year acts) cluster(judge)
       estimates store `y'_ly
 
       /* store N */
       local obs `e(N)'
 
       /* store control mean */
-      sum `y' if def_female == 0 & lm_gender == 1 & judge_female == 0 & e(sample) == 1
+      sum `y' if def_female == 0 & judge_female == 0 & e(sample) == 1
       local cont: di %6.3f `r(mean)'
       local cont_est `cont'
       
@@ -111,7 +111,7 @@ prog def run_gender
   }
 end
 
-/* DEFINE PROGRAM TO OUTPUT ANALYSIS RESULTS */x
+/* define program to output stored results */
 cap prog drop output_gender
 prog def output_gender
 
@@ -128,9 +128,8 @@ foreach fe in lm ly {
 
 end
 
-/* set suffix for tex file output */
+/* rum programs */
 local sample wom
 
-/* run defined programs */
 run_gender
 output_gender

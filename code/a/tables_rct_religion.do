@@ -116,7 +116,7 @@ store_religion, name("col5") outcome("acquitted") label("Acquittal rate")
 reghdfe acquitted judge_nonmuslim def_nonmuslim judge_def_nonmuslim def_male judge_nm_def_men , absorb(loc_year acts judge) cluster(judge)
 store_religion, name("col6") outcome("acquitted") label("Acquittal rate")
 
-table_from_tpl, t($out/r_template.tex) r($tmp/religion_acquitted.csv) o($out/religion_acquitted.tex)
+table_from_tpl, t($jcode/a/tpl/r_template.tex) r($tmp/religion_acquitted.csv) o($out/religion_acquitted.tex)
 
 /*************************/
 /* Outcome: Any decision */
@@ -146,7 +146,7 @@ store_religion, name("col5") outcome("decision") label("Any decision at all")
 reghdfe decision judge_nonmuslim def_nonmuslim judge_def_nonmuslim def_male judge_nm_def_men , absorb(loc_year acts judge) cluster(judge)
 store_religion, name("col6") outcome("decision") label("Any decision at all")
 
-table_from_tpl, t($out/r_template.tex) r($tmp/religion_decision.csv) o($out/religion_decision.tex)
+table_from_tpl, t($jcode/a/tpl/r_template.tex) r($tmp/religion_decision.csv) o($out/religion_decision.tex)
 
 /**************************/
 /* Outcome: Not convicted */
@@ -176,7 +176,7 @@ store_religion, name("col5") outcome("non_convicted") label("Not convicted")
 reghdfe non_convicted judge_nonmuslim def_nonmuslim judge_def_nonmuslim def_male judge_nm_def_men , absorb(loc_year acts judge) cluster(judge)
 store_religion, name("col6") outcome("non_convicted") label("Not convicted")
 
-table_from_tpl, t($out/r_template.tex) r($tmp/religion_non_convicted.csv) o($out/religion_non_convicted.tex)
+table_from_tpl, t($jcode/a/tpl/r_template.tex) r($tmp/religion_non_convicted.csv) o($out/religion_non_convicted.tex)
 
 /* Outcome: Acquitted */
 drop if negative == .
@@ -205,4 +205,4 @@ store_religion, name("col5") outcome("acquitted") label("Acquittal rate")
 reghdfe acquitted judge_nonmuslim def_nonmuslim judge_def_nonmuslim def_male judge_nm_def_men , absorb(loc_year acts judge) cluster(judge)
 store_religion, name("col6") outcome("acquitted") label("Acquittal rate")
 
-table_from_tpl, t($out/r_template.tex) r($tmp/religion_acquitted.csv) o($out/religion_acquitted_amb.tex)
+table_from_tpl, t($jcode/a/tpl/r_template.tex) r($tmp/religion_acquitted.csv) o($out/religion_acquitted_amb.tex)

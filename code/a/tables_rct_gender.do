@@ -114,7 +114,7 @@ store_gender, name("col5") outcome("acquitted") label("Acquittal rate")
 reghdfe acquitted judge_male def_male judge_def_male def_nonmuslim judge_men_def_nm , absorb(loc_year acts judge) cluster(judge)
 store_gender, name("col6") outcome("acquitted") label("Acquittal rate")
 
-table_from_tpl, t($out/g_template.tex) r($tmp/gender_acquitted.csv) o($out/gender_acquitted.tex)
+table_from_tpl, t($jcode/a/tpl/g_template.tex) r($tmp/gender_acquitted.csv) o($out/gender_acquitted.tex)
 
 /*************************/
 /* Outcome: Any decision */
@@ -144,7 +144,7 @@ store_gender, name("col5") outcome("decision") label("Any decision at all")
 reghdfe decision judge_male def_male judge_def_male def_nonmuslim judge_men_def_nm , absorb(loc_year acts judge) cluster(judge)
 store_gender, name("col6") outcome("decision") label("Any decision at all")
 
-table_from_tpl, t($out/g_template.tex) r($tmp/gender_decision.csv) o($out/gender_decision.tex)
+table_from_tpl, t($jcode/a/tpl/g_template.tex) r($tmp/gender_decision.csv) o($out/gender_decision.tex)
 
 /**************************/
 /* Outcome: Not convicted */
@@ -174,7 +174,7 @@ store_gender, name("col5") outcome("non_convicted") label("Not convicted")
 reghdfe non_convicted judge_male def_male judge_def_male def_nonmuslim judge_men_def_nm , absorb(loc_year acts judge) cluster(judge)
 store_gender, name("col6") outcome("non_convicted") label("Not convicted")
 
-table_from_tpl, t($out/g_template.tex) r($tmp/gender_non_convicted.csv) o($out/gender_non_convicted.tex)
+table_from_tpl, t($jcode/a/tpl/g_template.tex) r($tmp/gender_non_convicted.csv) o($out/gender_non_convicted.tex)
 
 /***************************/
 /* Drop ambiguous outcomes */
@@ -208,4 +208,4 @@ store_gender, name("col5") outcome("acquitted") label("Acquittal rate")
 reghdfe acquitted judge_male def_male judge_def_male def_nonmuslim judge_men_def_nm , absorb(loc_year acts judge) cluster(judge)
 store_gender, name("col6") outcome("acquitted") label("Acquittal rate")
 
-table_from_tpl, t($out/g_template.tex) r($tmp/gender_acquitted.csv) o($out/gender_acquitted_amb.tex)
+table_from_tpl, t($jcode/a/tpl/g_template.tex) r($tmp/gender_acquitted.csv) o($out/gender_acquitted_amb.tex)

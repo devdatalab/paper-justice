@@ -15,10 +15,10 @@ $repdata: path to initial data inputs
 $tmp: intermediate data files will be put here
 $jcode: path to folder of build and analysis .do and .py files*/
 
-global out
-global repdata 
+global out $tmp
+global repdata $iec/frozen_data/justice
 global tmp 
-global jcode 
+global jcode $ddl/paper-justice/code
 
 /* redirect several directories used in the code to $repdata */
 global jdata $repdata

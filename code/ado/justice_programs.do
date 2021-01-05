@@ -458,7 +458,7 @@ prog def prep_for_analysis
     label var non_convicted "not convicted"
 
     /* drop bulky variables */
-    drop drop lmcount* lycount* res_name court_name state_name district_name pet_adv pet_name judge_desg_raw purpose_name*
+    drop drop lmcount* lycount*  court_name state_name district_name  judge_desg_raw purpose_name*
 
     /* create interaction variables */
     gen judge_def_female = judge_female * def_female
@@ -710,8 +710,8 @@ prog def prep_for_analysis_event
     label var non_convicted "not convicted"
 
     /* drop bulky variables */
-    drop pet_adv pet_name res_adv res_name court_name ///
-        judge_desg_raw purpose_name* res_name judge_desg position district_name 
+    drop court_name ///
+        judge_desg_raw purpose_name*  judge_desg position district_name 
 
     
   }

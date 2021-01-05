@@ -16,7 +16,7 @@ $tmp: intermediate data files will be put here
 $jcode: path to folder of build and analysis .do and .py files*/
 
 global out $tmp
-global repdata $iec/frozen_data/justice
+global repdata ~/secc/frozen_data/justice
 global tmp 
 global jcode $ddl/paper-justice/code
 
@@ -46,6 +46,10 @@ if "$out" == "" | regexm("$out", "iec|ddl| ") ///
 /* define programs for justice analysis */
 do $jcode/ado/justice_programs.do
 do $jcode/ado/tools.do
+
+/* other programs to be installed */
+// ssc install rangestat
+// ssc install rangejoin
 
 /*********/
 /* BUILD */

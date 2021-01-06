@@ -1,10 +1,13 @@
 # paper-justice
 
+## Overview
+These code and data files replicate the results in "Measuring Gender and Religious Bias in the Indian Judiciary," by Elliot Ash et al. (2021). A working paper version of the manuscript can be found here.
+
 ---
 ## Replication Code and Data for Justice bias 2021
 To regenerate the tables and figures from the paper, take the following steps:
 
-* Download and unzip the replication data package from this Google Drive folder (not yet linked--waiting for sharing permission)
+* Download and unzip the replication data package from this Google Drive folder (not yet linked)
 
 1. To get as many files as possible in .dta form, plus necessary CSVs, use this link (tbd)
 2. To get all the files in CSV format, use this link (tbd)

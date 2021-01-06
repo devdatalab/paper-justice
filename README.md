@@ -1,7 +1,7 @@
 # paper-justice
 
 ---
-## Replication Code and Data for NRA 2020
+## Replication Code and Data for Justice bias 2021
 To regenerate the tables and figures from the paper, take the following steps:
 
 * Download and unzip the replication data package from this Google Drive folder (not yet linked--waiting for sharing permission)

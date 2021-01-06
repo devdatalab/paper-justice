@@ -8,19 +8,19 @@ drop if bail == 1
 foreach outcome in acq decision{
 
 /* gender - court month FE sample */
-  qui reghdfe `outcome' judge_female def_female judge_def_female def_muslim if lm_gender == 1, absorb(loc_month acts) cluster(judge)
+  qui reghdfe `outcome' judge_female def_female judge_def_female def_muslim, absorb(loc_month acts) cluster(judge)
   gen lmg_sample_`outcome' = 1 if e(sample) == 1
 
 /* gender - court year FE sample */
-  qui reghdfe `outcome' judge_female def_female judge_def_female def_muslim if ly_gender == 1, absorb(loc_year acts) cluster(judge)
+  qui reghdfe `outcome' judge_female def_female judge_def_female def_muslim, absorb(loc_year acts) cluster(judge)
   gen lyg_sample_`outcome' = 1 if e(sample) == 1
 
 /* religion - court month FE sample */
-  qui reghdfe `outcome' judge_muslim def_female judge_def_muslim def_muslim if lm_religion == 1, absorb(loc_month acts) cluster(judge)
+  qui reghdfe `outcome' judge_muslim def_female judge_def_muslim def_muslim, absorb(loc_month acts) cluster(judge)
   gen lmr_sample_`outcome' = 1 if e(sample) == 1
 
 /* religion - court year FE sample */
-  qui reghdfe `outcome' judge_muslim def_female judge_def_muslim def_muslim if ly_religion == 1, absorb(loc_year acts) cluster(judge)
+  qui reghdfe `outcome' judge_muslim def_female judge_def_muslim def_muslim, absorb(loc_year acts) cluster(judge)
   gen lyr_sample_`outcome' = 1 if e(sample) == 1
 
 }

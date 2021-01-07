@@ -4,9 +4,6 @@ use $jdata/justice_event_analysis, clear
 /* drop bail obs */
 drop if bail == 1
 
-/* shorten dataset */
-drop type_name disp_name_raw disp_name cino court act offense*
-
 /* threshold of interval with single transition */
 global threshold 175
 global ts 25wk

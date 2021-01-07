@@ -159,7 +159,7 @@ forval yr = 2010/2018{
   save $tmp/rj_case_`yr', replace
 
   /* bring in judge data for rangejoin */
-  use $jdata/courts_ts_rangejoin, clear
+  use $tmp/courts_ts_rangejoin, clear
 
   /* rangejoin */
   rangejoin date date_start date_end using $tmp/rj_case_`yr', by(state_code dist_code court_no)
@@ -241,18 +241,23 @@ drop offense* bail_grant positive_* unclear_perc  negative  court_no
 drop f_transition_* mus_transition_* left group lower upper
 drop date_start-date_next
 drop *_prev *_next *_p *_n
+drop cino case_no disp_name_raw disp_name type_name *_ipc year *judges *judge_share*
 
 /* order dataset */
 /* case details */
-order year cino act section state_code state_name dist_code court case_no 
+order act section state_code state_name dist_code court 
 /* outcomes */
-order acquitted non_convicted delay topcoded_delay, after(case_no)
+order acquitted non_convicted delay topcoded_delay, after(court)
 /* treatment */
 order transitiondate date time_to_transition f_transition mus_transition nextprev_trans_time current_judge_tenure, after(topcoded_delay)
 /* other details */
-order def_* *judges* *judge_share disp_name disp_name_raw type_name bail bailable_ipc number_sections_ipc, after(current_judge_tenure)
+order def_* bail, after(current_judge_tenure)
 /* fixed effects */
 order loc-religion, before(decision_date)
+order loc_year, after(loc_month)
+
+/* drop remaining unnecessary bulky date variables */
+drop decision_date - first_hearing
 
 /* final labelling */
 la var acquitted "Acquitted"
@@ -265,7 +270,6 @@ la var murder "Murder indicator"
 la var women_crime "Crimes against women"
 
 /* save dataset */
-duplicates drop
 compress
 save $jdata/justice_event_analysis, replace
 

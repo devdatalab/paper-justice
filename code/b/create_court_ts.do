@@ -126,4 +126,4 @@ foreach x of var *share{
 do $jcode/b/label_courts_ts_rangejoin
 
 /* save dataset */
-save $jdata/courts_ts_rangejoin, replace
+save $tmp/courts_ts_rangejoin, replace

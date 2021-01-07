@@ -9,6 +9,7 @@
 /* Save appended case data for all years separately */
 /****************************************************/
 
+/* append case data for all years */
 use $jdata/classification/cases_classified_2010, clear
 
 forval yr = 2011/2018{
@@ -16,9 +17,20 @@ forval yr = 2011/2018{
   append using $jdata/classification/cases_classified_`yr'
 }
 
-duplicates drop
-compress
+/* drop unnecessary vars that can be retrieved from keys */
+drop state_name district_name court_name
 
+/* drop other redundant variables */
+drop cino c_code *_raw *_year *_month *_day date*decision date*filing date*first*list date*last*list
+
+/* drop muslim id */
+drop muslim_class_l
+
+/* order */
+order year act section state_code-case_no position female* *date* *hearing purpose* type_name disp_name *delay* offenses *_ipc
+
+/* compress and save */
+compress
 save $jdata/cases_all_years, replace
 
 /*************************/
@@ -131,6 +143,7 @@ la var religion "Religious offense"
 
 /* save dataset */
 compress
+la data "Justice RCT analysis dataset"
 save $jdata/justice_analysis, replace
 
 /****************************************/
@@ -271,5 +284,6 @@ la var women_crime "Crimes against women"
 
 /* save dataset */
 compress
+la data "Justice event study analysis dataset"
 save $jdata/justice_event_analysis, replace
 

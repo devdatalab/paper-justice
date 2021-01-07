@@ -124,13 +124,14 @@ tostring court_no, replace format(%4.0f)
 
 /* drop unnecessary vars */
 drop diff flag group pos1 honoraries judge_desg temp desg desg_info roman no female start end
+drop judge_desg_raw
 
 /* rename position */
 ren position1 position
 
 /* order vars */
 order state_code dist_code court_no, first
-order judge_desg_raw position *class tenure* start end, after(court_no)
+order position *class tenure* start end, after(court_no)
 
 /* label variables */
 la var court_no "Court number"

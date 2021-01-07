@@ -123,7 +123,7 @@ tostring state_code dist_code, replace format(%2.0f)
 tostring court_no, replace format(%4.0f)
 
 /* drop unnecessary vars */
-drop diff flag group pos1 honoraries judge_desg temp desg desg_info roman no female
+drop diff flag group pos1 honoraries judge_desg temp desg desg_info roman no female start end
 
 /* rename position */
 ren position1 position

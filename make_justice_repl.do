@@ -16,7 +16,7 @@ $tmp: intermediate data files will be put here
 $jcode: path to folder of build and analysis .do and .py files*/
 
 global out $tmp
-global repdata ~/secc/frozen_data/justice
+global repdata ~/secc/frozen_data/justice/bias_replication
 global tmp 
 global jcode $ddl/paper-justice/code
 

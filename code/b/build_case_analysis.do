@@ -100,23 +100,25 @@ gen decision = 1 if !mi(decision_date)
 replace decision = 0 if mi(decision_date)
 la var decision "Whether the accused got a decision at all"
 
+duplicates drop
+
 /* drop unnecessary vars */
 drop offense* bail_grant positive_* unclear_perc lm_gender lm_religion ly_gender ly_religion negative case_load court_no
+drop cino case_no disp_name_raw disp_name type_name position *_ipc
 
 /* order dataset */
 /* case details */
-order year cino act section state_code dist_code court case_no 
+order act section state_code dist_code court 
 /* outcomes */
-order decision acquitted non_convicted delay topcoded_delay, after(case_no)
+order decision acquitted non_convicted delay topcoded_delay, after(court)
 /* demographics */
 order judge_* def_*, after(topcoded_delay)
-/* disposition of case */
-order disp_name disp_name_raw type_name, after(def_male)
 /* fixed effects and judge designation */
-order loc loc_month loc_year loc_pos acts judge position, after(type_name)
+order loc loc_month loc_year loc_pos acts judge, after(def_male)
 /* other case characteristics */
-order person_crime-tenure_length tenure* bail bailable_ipc number_sections_ipc, after(position)
-/* dates appear last*/
+order person_crime-tenure_length bail, after(judge)
+/* dates appear last - drop them as theyre not needed in analysis*/
+drop date-first_hearing loc_pos
 
 /* final labelling */
 la var acquitted "Acquitted"
@@ -128,7 +130,6 @@ la var women_crime "Crimes against women"
 la var religion "Religious offense"
 
 /* save dataset */
-duplicates drop
 compress
 save $jdata/justice_analysis, replace
 

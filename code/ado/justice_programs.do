@@ -203,12 +203,12 @@ prog def prep_for_analysis
     /* format demographic vars for analysis */
 
     /* gender */
-    rename female_class_l def_female 
+    rename res_name_female def_female 
     replace def_female = . if def_female < 0 
     gen def_male = !(def_female) if def_female != . 
 
     /* religion */
-    rename muslim_class_l def_muslim 
+    rename res_name_muslim def_muslim 
     replace def_muslim = . if def_muslim < 0 
     gen def_nonmuslim = !(def_muslim) if def_muslim != . 
 
@@ -496,12 +496,12 @@ prog def prep_for_analysis_event
     /* format demographic vars for analysis */
 
     /* gender */
-    rename female_class_l def_female 
+    rename res_name_female def_female 
     replace def_female = . if def_female < 0 
     gen def_male = !(def_female) if def_female != . 
 
     /* religion */
-    rename muslim_class_l def_muslim 
+    rename res_name_muslim def_muslim 
     replace def_muslim = . if def_muslim < 0 
     gen def_nonmuslim = !(def_muslim) if def_muslim != . 
 

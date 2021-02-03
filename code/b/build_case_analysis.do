@@ -21,17 +21,17 @@ forval yr = 2011/2018{
 drop state_name district_name court_name
 
 /* drop other redundant variables */
-drop cino c_code *_raw *_year *_month *_day date*decision date*filing date*first*list date*last*list
+drop cino case_no c_code *_raw *_year *_month *_day date*decision date*filing date*first*list date*last*list
 
 /* drop muslim id */
-drop muslim_class_l
+drop res_name_muslim
 
 /* order */
-order year act section state_code-case_no position female* *date* *hearing purpose* type_name disp_name *delay* offenses *_ipc
+order year act section state_code-court_no position female* *date* *hearing purpose* type_name disp_name *delay* offenses *_ipc
 
 /* compress and save */
 compress
-save $jdata/cases_all_years, replace
+save $jdata/criminal_cases_all_years, replace
 
 /*************************/
 /* Merge judge-case data */
@@ -113,6 +113,15 @@ replace decision = 0 if mi(decision_date)
 la var decision "Whether the accused got a decision at all"
 
 duplicates drop
+
+/* generate indicator for whether case was decided on start date of judge tenure */
+gen corner = 1 if filing_date == tenure_start
+
+/* generate indicator for whether was decided on end date of judge tenure */
+replace corner = 1 if filing_date == tenure_end
+
+/* drop these cases as they generate duplicates */
+drop if corner == 1
 
 /* drop unnecessary vars */
 drop offense* bail_grant positive_* unclear_perc lm_gender lm_religion ly_gender ly_religion negative case_load court_no

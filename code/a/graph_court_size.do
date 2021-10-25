@@ -5,26 +5,17 @@ use $jdata/justice_analysis, clear
 drop if bail == 1
 
 /* calculate court size */
-egen tag = tag(loc judge)
-egen rct_court_size = total(tag), by(loc)
-
-/* drop duplicate cinos to facilitate merge (0.22% of data) */
-duplicates drop cino, force
+egen tag = tag(state_code district_code court judge)
+egen rct_court_size = total(tag), by(state_code district_code court)
 
 /* keep vars we need */
-keep cino rct_court_size
-
-/* merge with event study analysis dataset */
-merge 1:m cino using $jdata/justice_event_analysis, nogen keepusing(num_judges bail)
-
-/* rename event study court size */
-ren num_judges event_court_size
+keep ddl_case_id rct_court_size
 
 /* label both variables */
-la var rct_court_size "RCT sample court size (Median: 5)"
-la var event_court_size "Event study sample court size (Median: 2)"
+la var rct_court_size "Court size distribution (Median: 5)"
 
 /* graph distribution of court size */
 set scheme pn
-twoway (kdensity rct_court_size if !mi(rct_court_size) & rct_court_size < 15) (kdensity event_court_size if !mi(event_court_size) & bail != 1, ytitle("Kernel Density") xtitle("Court size")), ///
-note("Note: The median courts in the RCT and event study samples have 5 judges and 2 judges respectively") legend(label(1 "RCT court size") label(2 "Event study court size"))
+twoway histogram rct_court_size if !mi(rct_court_size) & rct_court_size < 15, width(1) color(cranberry) ///        
+        legend(off) xtitle("No. of judges in court") text(.12 5.8 "Median: 5", size(small)) xline(5)
+graphout court_size, png

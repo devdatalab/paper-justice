@@ -15,74 +15,27 @@ $repdata: path to initial data inputs
 $tmp: intermediate data files will be put here
 $jcode: path to folder of build and analysis .do and .py files*/
 
-global out $tmp
-global repdata ~/secc/frozen_data/justice/bias_replication
-global tmp 
+global out 
+global jdata ~/secc/frozen_data/justice/bias_replication
+global tmp  ~/secc/frozen_data/justice/bias_replication
 global jcode $ddl/paper-justice/code
-
-/* redirect several directories used in the code to $repdata */
-global jdata $repdata
-
-/* display an error and break if any of the globals are empty or set to old values*/
-if "$out" == "" | regexm("$out", "iec|ddl| ") ///
-    display  "error: Global out not set properly. See instructions in README"
-
-if "$repdata" == "" | regexm("$repdata", "iec|ddl| ") ///
-    display  "error: Global repdata not set properly. See instructions in README"
-
-if "$mcode" == "" | regexm("$jcode", "iec| ") ///
-    display  "error: Global mcode not set properly. See instructions in README"
-
-if "$tmp" == "" | regexm("$tmp", "iec|ddl| ") ///
-    display  "error: Global tmp not set properly. See instructions in README"
-
-/* set the makefile to crash immediately if globals aren't set properly  */
-if "$out" == "" | regexm("$out", "iec|ddl| ") ///
-    | "$repdata" == "" | regexm("$repdata", "iec|ddl| ") ///
-    | "$tmp" == "" | regexm("$tmp", "iec|ddl| ") ///
-    | "$mcode" == "" | regexm("$jcode", "iec| ") ///
-    exit 1
 
 /* define programs for justice analysis */
 do $jcode/ado/justice_programs.do
 do $jcode/ado/tools.do
 
-/* other programs to be installed */
-// ssc install rangestat
-// ssc install rangejoin
-
-/*********/
-/* BUILD */
-/*********/
-
-/* Prep judge-level dataset */
-do $jcode/b/create_judges_clean.do
-
-/* Prep court-level dataset */
-do $jcode/b/create_court_ts.do
-
-/* Merge judge-case, and court-case data to create analysis datasets */
-do $jcode/b/build_case_analysis.do 
-
 /************/
 /* ANALYSIS */
 /************/
 
-/* Table with judge-level summary statistics */
+/* Table 2: Outcome probability, by judge identity (summary stat) */
 do $jcode/a/judge_summary.do
 
-/* Balance table to check random case asssignment */
+/* Table 3: Test for random assignment to judges */
 do $jcode/a/tables_balance.do
 
-/* Summary statistics by crime category */
+/* Tables A3 & A4: Summary stats by defendant characteristics*/
 do $jcode/a/summary_stats.do
-
-/* Visual representation of crime category summary statistics */
-/* Fig 1 in paper */
-shell python $jcode/a/py/make_gender_coefplot.py
-shell python $jcode/a/py/make_gender_coefplot2.py
-shell python $jcode/a/py/make_religion_coefplot.py
-shell python $jcode/a/py/make_religion_coefplot2.py
 
 /* Tables 5, A6, A8: RCT gender results */
 do $jcode/a/tables_rct_gender.do
@@ -90,21 +43,28 @@ do $jcode/a/tables_rct_gender.do
 /* Tables 6, A7, A9: RCT religion results */
 do $jcode/a/tables_rct_religion.do
 
-/* Table 7, and Figs 2 & 3: Event study tables & figures */
-do $jcode/a/event_study_analysis.do
-
-/* Figure 4: Literature coefplot */
+/* Figure 4: Literature coefplot and scatter */
 shell python $jcode/a/py/make_coefplot_literature.py
+do $jcode/a/graph_scatter_pub_bias.do
 
-/* Appendix: Validation of LSTM muslim classifier */
-do $jcode/a/validate_lstm_muslim.do
-
-/* Appendix: Court size distribution */
+/* Appendix: court size distribution */
 do $jcode/a/graph_court_size.do
 
-/* Appendix: Sub-sample analysis - crimes against women */
-do $jcode/a/women_analysis.do
+/* Appendix: Robustness check tables */
+do $jcode/a/robustness_checks.do
 
-/* Appendix: Event study - other outcomes */
-do $jcode/a/event_study_other_outcomes.do
+/* victim analysis */
+do $jcode/a/table_victim_mismatch.do
 
+/* last name test */
+do $jcode/a/test_same_lastname.do
+
+/* ramadan analysis */
+do $jcode/a/table_ramadan.do
+
+/* maps for court distribution */
+do $jcode/a/court_count_district.do
+
+/* note that environment py_spatial should be activated */
+/* for script below to run */
+shell python $jcode/a/py/court_count_maps.py

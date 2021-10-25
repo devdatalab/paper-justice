@@ -19,6 +19,9 @@ qui {
 
   /* include dataset building programs */
   do ~/ddl/tools/do/build_programs.do
+
+  /* load validation tools */
+  do ~/ddl/tools/do/data_validation_tools.do
   
   /* load clean graph scheme */
   // capture !rm -f ~/ado/personal/simplescheme.scheme
@@ -33,7 +36,8 @@ qui {
   capture copy ~/ddl/config/schemes/g538.scheme ~/ado/personal/, replace
   cap set scheme simplescheme
 
-
+  /* **** PROGRAM START **** <---- Don't change this line, the tools parser needs it! */
+  
 
   /*********************************************************************************************************/
   /* program ddrop : drop any observations that are duplicated - not to be confused with "duplicates drop" */
@@ -53,7 +57,6 @@ qui {
   }
 end
 /* *********** END program ddrop ***************************************** */
-
 
 
 /**************************************************************************************************/
@@ -378,7 +381,7 @@ prog def town_name_clean
   }
 end
 
-/** end town_name_clean ************************************************************/
+/** END program town_name_clean ************************************************************/
 
 /*******************************************************************************************/
 /* program village_name_clean : extension of name_clean with some village-specific stuff  */
@@ -421,7 +424,7 @@ prog def village_name_clean
     replace `name' = trim(`name')
   }
 end
-/** end village_name_clean *****************************************************************/
+/** END program village_name_clean ************************************************************/
 
 /*******************************************************************************************/
 /* program con_name_clean : extnesion of name_clean with some constituency-specific stuff  */
@@ -470,6 +473,7 @@ program def con_name_clean
     }
   }
 end
+/** END program con_name_clean ************************************************************/
 
 
 
@@ -513,7 +517,7 @@ prog def clean_roman_numerals
     outsheet `group' `varlist' using $tmp/foo.csv if `tag', comma replace nonames
 
     /* call roman numeral fixing function in python */
-    shell python ~/ddl/tools/py/fix_roman_numerals.py -i `py_in' -o `py_out'
+    shell python ~/ddl/tools/py/scripts/fix_roman_numerals.py -i `py_in' -o `py_out'
 
     /* prep results for merging */
     preserve
@@ -804,7 +808,9 @@ end
 
 
 /* pn_heatmap
+
 USAGE: pn_heatmap latitude longitude, heat(varname) [name(name) msize(name)]
+
 */
 cap prog drop pn_heatmap
 prog def pn_heatmap
@@ -950,6 +956,7 @@ prog def get_state_names
     drop _gsn_merge
   }
 end
+/** END program get_state_names ************************************************************/
 
 /****************************************************************/
 /* program get_state_ids : merge in state_ids using state_names */
@@ -978,8 +985,12 @@ prog def get_state_ids
 
   }
 end
+/** END program get_state_ids ************************************************************/
 
 
+/***********************************************************************************/
+/* program twoway_rb : undocmented program */
+/***********************************************************************************/
 cap prog drop twoway_rb
 prog def twoway_rb
 
@@ -993,11 +1004,11 @@ prog def twoway_rb
   twoway (scatter `varlist' if `if_black', color(black) msize(`msize')) (scatter `varlist' if `if_red', color(red) msize(`msize'))
 
 end
+/** END program twoway_rb ************************************************************/
 
 /***********************************************************************************/
 /* program gen_location_fe : generate state district and subdistrict fixed effects */
 /***********************************************************************************/
-
 cap prog drop gen_location_fe
 prog def gen_location_fe
   {
@@ -1027,6 +1038,8 @@ prog def gen_location_fe
     }
   }
 end
+/** END program gen_location_fe ************************************************************/
+
 
 /**********************************************************************************/
 /* program gen_vars : Generate a list of stata vars as missing */
@@ -1424,7 +1437,7 @@ prog def estmod_list_fix
   {
     syntax using/
 
-    shell python ~/ddl/tools/py/est_modify.py -c clean_list -i `using' -o `using'
+    shell python ~/ddl/tools/py/scripts/est_modify.py -c clean_list -i `using' -o `using'
   }
 end
 /* *********** END program estmod_list_fix ***************************************** */
@@ -1437,7 +1450,7 @@ prog def estmod_long_list_fix
   {
     syntax using/
 
-    shell python ~/ddl/tools/py/est_modify.py -c clean_long_list -i `using' -o `using'
+    shell python ~/ddl/tools/py/scripts/est_modify.py -c clean_long_list -i `using' -o `using'
   }
 end
 /* *********** END program estmod_long_list_fix ***************************************** */
@@ -1452,7 +1465,7 @@ prog def estmod_footer
   /* add .tex suffix to using if not there */
   if !regexm("`using'", "\.tex$") local using `using'.tex
   
-  shell python ~/ddl/tools/py/est_modify.py -c footer -i `using' -o `using' --cstring "`cstring'"
+  shell python ~/ddl/tools/py/scripts/est_modify.py -c footer -i `using' -o `using' --cstring "`cstring'"
 end
 /* *********** END program estmod_footer ***************************************** */
 
@@ -1466,7 +1479,7 @@ prog def estmod_header
   /* add .tex suffix to using if not there */
   if !regexm("`using'", "\.tex$") local using `using'.tex
   
-  shell python ~/ddl/tools/py/est_modify.py -c header -i `using' -o `using' --cstring "`cstring'"
+  shell python ~/ddl/tools/py/scripts/est_modify.py -c header -i `using' -o `using' --cstring "`cstring'"
 end
 /* *********** END program estmod_header ***************************************** */
 
@@ -1481,7 +1494,7 @@ prog def estmod_row_highlight
     /* add .tex suffix to using if not there */
     if !regexm("`using'", "\.tex$") local using `using'.tex
 
-    shell python ~/ddl/tools/py/est_modify.py -c highlight_row -i `using' -o `using' --color "`color'" --coef "`coef'"
+    shell python ~/ddl/tools/py/scripts/est_modify.py -c highlight_row -i `using' -o `using' --color "`color'" --coef "`coef'"
   }
 end
 /* *********** END program estmod_row_highlight ***************************************** */
@@ -1498,7 +1511,7 @@ prog def estmod_col_div
     /* add .tex suffix to using if not there */
     if !regexm("`using'", "\.tex$") local using `using'.tex
 
-    shell python ~/ddl/tools/py/est_modify.py -c col_div -i `using' -o `using' --column "`column'"
+    shell python ~/ddl/tools/py/scripts/est_modify.py -c col_div -i `using' -o `using' --column "`column'"
   }
 end
 /* *********** END program estmod_col_div ***************************************** */
@@ -1550,7 +1563,7 @@ cap prog drop set_rseed
 prog def set_rseed
   {
     /* generate a seed based on millisecond timer */
-    shell ~/ddl/tools/py/get_rseed.sh >$iec/output/tmp/rseed
+    shell ~/ddl/tools/sh/get_rseed.sh >$iec/output/tmp/rseed
 
     /* read seed into a local variable */
     preserve
@@ -1579,11 +1592,15 @@ collapse_ec, year(05) tru(urban) keeplong(NIC size_group) keepwide(NIC)
 - if you want wide by two groups, need to run the function twice:
 use ec05u_collapsed_new, clear
 keep if ec05_state_id == "02"
+
 keep *id gov NIC size_group ec05_emp_all ec05_count_all
+
 // e.g. get NIC / size_group into wide format
 collapse_ec, year(05) tru(urban) keeplong(size_group) keepwide(NIC)
+
 ren ec05_emp_all* ec05_emp_all_NIC*_
 ren ec05_count_all* ec05_count_all_NIC*_
+
 // now get size group into wide format
 collapse_ec, year(05) tru(urban) keepwide(size_group)
 */
@@ -1687,13 +1704,23 @@ end
 /* *********** END program collapse_ec ***************************************** */
 
 /**********************************************************************************/
-/* program find_prog : Insert description here */
+/* program find_prog : Find a Stata program and show its syntax or source               */
 /***********************************************************************************/
 cap prog drop find_prog
 prog def find_prog
   {
-    syntax anything
-    shell python ~/ddl/tools/py/find_prog.py `1'
+    syntax anything, [Full Syntax]
+    tokenize `anything'
+    
+    if !mi("`syntax'") {
+      shell python ~/ddl/tools/py/scripts/parse_ddl_tools.py syntax -p `1'
+    }
+    else if !mi("`full'") {
+      shell python ~/ddl/tools/py/scripts/parse_ddl_tools.py source -p `1'
+    }
+    else {
+      shell python ~/ddl/tools/py/scripts/parse_ddl_tools.py header -p `1'
+    }
   }
 end
 /* *********** END program find_prog ***************************************** */
@@ -1738,9 +1765,7 @@ prog def get_ecol_header_string, rclass
     return local col_headers = `"`cstring'"'
   }
 end
-/* *********** END program get_col_header_string ***************************************** */
-
-// possible issues: 4370, 3601
+/* *********** END program get_ecol_header_string ***************************************** */
 
 /**********************************************************************************/
 /* program estout_default : Run default estout command with (1), (2), etc. column headers.
@@ -1784,12 +1809,29 @@ prog def estout_default
 
     /* output tex file */
     if mi("`htmlonly'") {
-      di `" estout using "`using'.tex", `mlabel' `keep' `order' `title' `eparams' "'
+      // di `" estout using "`using'.tex", `mlabel' `keep' `order' `title' `eparams' "'
       estout `anything' using "`using'.tex", `mlabel' `keep' `order' `title' `eparams'
     }
 
     /* output html file for easy reading */
     estout `anything' using "`using'.html", `mlabel' `keep' `order' `title' $estout_params_html
+
+    /* if HTMLVIEW is on, copy the html file to caligari/ */
+    if ("$HTMLVIEW" == "1") {
+
+      /* make sure output folder exists */
+      cap confirm file ~/public_html/html/
+      if _rc shell mkdir ~/public_html/html/
+
+      /* copy the file to HTML folder */
+      shell cp  `using'.html ~/public_html/html/
+
+      /* strip path component from the link */
+      local filepart = regexr("`using'", ".*/", "")
+      if !strpos("`using'", "/") local filepart `using'
+      local linkpath "http://caligari.dartmouth.edu/~`c(username)'/html/`filepart'.html"
+      di "View table at `linkpath'"
+    }
   }
 end
 
@@ -2009,7 +2051,9 @@ end
 /* program get_con_id_from_village : Matches villages to con_id_joint. Takes year
 into account and matches both pre- and
 post-delimitation.
+
 Requires variable year, pc01_state_id, pc01_village_id
+
 NOTE: THIS PROGRAM IS INCOMPLETE. PLEASE COMPLETE IT!
 */
 /***********************************************************************************/
@@ -2149,8 +2193,8 @@ prog def syn_fix_place_names
   {
     syntax, xml(string) html(string)
     di c(current_time)
-    di `"shell python ~/ddl/tools/py/reg_search.py -o ~/public_html/`html'.html -d $tmp/`html'.do -c $tmp/`html'.csv -x `xml'.xml"'
-    shell python ~/ddl/tools/py/reg_search.py -o ~/public_html/`html'.html -d $tmp/`html'.do -c $tmp/`html'.csv -x `xml'.xml
+    di `"shell python ~/ddl/tools/py/scripts/reg_search.py -o ~/public_html/`html'.html -d $tmp/`html'.do -c $tmp/`html'.csv -x `xml'.xml"'
+    shell python ~/ddl/tools/py/scripts/reg_search.py -o ~/public_html/`html'.html -d $tmp/`html'.do -c $tmp/`html'.csv -x `xml'.xml
 
     disp_nice "Running regressions"
     do $tmp/`html'.do
@@ -2231,6 +2275,11 @@ prog def syn_fix_place_names
         shell epstopdf $tmp/`anything'.eps
         cap erase $tmp/`anything'.eps
         if mi("`pdf'") local linkpath $tmp/`anything'.pdf
+
+        if "$machine" == "paul_office" {
+          shell mv `linkpath' ~/Dropbox/tmp
+          local linkpath ~/Dropbox/tmp/`anything'.pdf
+        }
       }
         
       /* if we are not on macos (i.e. we are on RC), export a png file to ~/public_html */
@@ -2342,18 +2391,21 @@ prog def syn_fix_place_names
   /* *********** END program graphout_cleanup ************************** */
 
   /***************************************************************************************/
-  /* program encode_string_to_key : Encode variables to numeric separating key w/ values */
+  /* program encode_string_to_key_secc : Encode variables to numeric separating key w/ values */
   /***************************************************************************************/
-  /* program replaces specified variables with numeric encoding in active set */
+/* NOTE: THIS PROGRAM IS OBSOLETE, BUT RETAINED FOR COMPATIBILITY WITH OLD BUILDS.
+         THIS VERSION CREATES SUBOPTIMAL STRING TABLES WITH CONFUSING VARNAMES. */
+
+/* program replaces specified variables with numeric encoding in active set */
   /* creating external key linking raw numeric ids to raw string value */
 
-  /* SYNTAX: encode_string_to_key varlist, keypath($iec/pc11/keys) */
+  /* SYNTAX: encode_string_to_key_secc varlist, keypath($iec/pc11/keys) */
   /* keypath specifies top path to save keys to, and will create /keys directory if */
   /* the path specified does not end in this folder name so that all encoded keys */
   /* are always saved to a folder /keys */
 
-  cap prog drop encode_string_to_key
-  prog def encode_string_to_key
+  cap prog drop encode_string_to_key_secc
+  prog def encode_string_to_key_secc
   {
     syntax varlist, KEYPATH(string)
 
@@ -2417,6 +2469,81 @@ prog def syn_fix_place_names
     compress *
 
   }
+  end
+  /* *********** END program encode_string_to_key_secc *****************************************/
+
+  /*************************************************************************************************/
+  /* program encode_string_to_key : Encode variables to numeric with string table in separate file */
+  /*************************************************************************************************/
+
+  /* This program takes a list of variables and encodes them numerically.
+     For each variable, a new .dta string table file is created with links to the original strings.
+
+    For a variable `myvar`, the string table will have:
+      mystring    int
+      myvar       strXX
+      count       int
+    
+    The parameter keypath() specifies the root folder for the key, which will be
+    called keys/myvar_key.dta
+
+    SYNTAX: encode_string_to_key_secc varlist, keypath($iec/pc11/keys)
+  */
+  cap prog drop encode_string_to_key
+  prog def encode_string_to_key
+    syntax varlist, KEYPATH(string)
+
+    /* loop over list of variables to encode */
+    foreach var in `varlist' {
+
+      /* show progress */
+      di "encode_string_to_key(): Encoding variable `var'"
+
+      /* remove leading and trailing spaces */
+      qui replace `var' = trim(`var')
+
+      /* preserve and limit to the data we will use-- just the varname */
+      preserve
+      keep `var'
+      
+      /* collapse to one row per value */
+      gen count = 1
+      gcollapse (sum) count, by(`var')
+      
+      /* sort and generate unique ids for unique values */
+      sort `var'
+      egen id = group(`var')
+
+      /* remove trailing slash from key path if included */
+      if regexm("`keypath'", "/$") {
+        local keypath = regexr("`keypath'", "/$", "")
+      }
+
+      /* add /keys to the end of top path if path does not end in /keys folder */
+      if !regexm("`keypath'", "/keys$") {
+        local keypath "`keypath'/keys"
+      }
+
+      /* create /keys directory if doesn't exist */
+      cap mkdir `keypath'
+
+      /* rename so varname is the numeric id, and varname_s is the string */
+      ren `var' `var'_s
+      ren id `var'
+
+      /* save the string table */
+      di "Create string table `keypath'/`var'_key.dta with values of `keypath'"
+      qui compress
+      qui save `keypath'/`var'_key, replace
+
+      /* restore the original dataset */
+      restore
+      
+      /* replace original strings with encoding */
+      ren `var' `var'_s
+      qui merge m:1 `var'_s using `keypath'/`var'_key, keepusing(`var') nogen assert(match)
+      drop `var'_s
+    }
   end
 
   /* *********** END program encode_string_to_key *****************************************/
@@ -2657,7 +2784,7 @@ prog def syn_fix_place_names
     shell cat $tmp/iec_header.txt $tmp/iec.html $tmp/iec1_header.txt $tmp/iec1.html $tmp/iec2_header.txt $tmp/iec2.html >~/public_html/iec_tree.html
 
     di "Generating codemap..."
-    shell python ~/ddl/tools/py/codemap.py
+    shell python ~/ddl/tools/py/scripts/codemap.py
 
     /* copy text code map to $iec/output/pn */
     copy ~/public_html/code_tree.txt $iec/output/pn/, replace
@@ -2670,12 +2797,14 @@ prog def syn_fix_place_names
   /* program collapse_graph_mean : Generate a mobility over time graph                   */
 
   /*
+
   Parameters:
   - varname: variable to plot
   - over(age_group) -- defines the x axis variable -- this is what we collapse on
   - by(dataset)     -- optionally overlay graphs according to this variable. [overlay will be 0, 1, 2...]
   - [aw=wt]         -- pass this through to collapse
   - xtitle, ytitle, xlabel, ylabel -- passthru
+
   */
 
 
@@ -2842,12 +2971,14 @@ prog def syn_fix_place_names
   /* program collapse_graph_reg : Generate a mobility over time graph                   */
 
   /*
+
   Parameters:
   - varname: variable to plot
   - over(age_group) -- defines the x axis variable -- this is what we collapse on
   - by(dataset)     -- optionally overlay graphs according to this variable. [overlay will be 0, 1, 2...]
   - [aw=wt]         -- pass this through to collapse
   - xtitle, ytitle, xlabel, ylabel -- passthru
+
   */
 
 
@@ -3070,6 +3201,7 @@ prog def supergroups
   }
 }
 end
+/***** END program supergroups ****************/
 
 /**********************************************************************************/
 /* program gen_ihs : Insert description here */
@@ -3097,12 +3229,15 @@ a program in parallel. assumes your program takes a `group' and a
 /*
 a hypothetical example call of this would be: gnu_parallelize, max_cores(5) program(gen_data.do) \\\
 input_txt($tmp/par_info.txt) progloc($tmp) options(group state) maxvar pre_comma diag
+
 see the memo
 "2018-07-30 TL memo on brute force parallelization in stata" for more
 information.
+
 BUGS:
 - only checks errors in one log file
 - extract_prog requires PRECISELY our program template ("prog def" --> "END PROGRAM")
+
 */
 cap prog drop gnu_parallelize
 prog def gnu_parallelize
@@ -3143,7 +3278,7 @@ prog def gnu_parallelize
     
   /* if we want a notificiation, send the start announcement */
   if !mi("`slackbot'") & !mi("$slackkey"){
-    slack "building_construction: GNUPAR job monitoring start: *`program'* _(logs in $tmp/gnupar_`randnum')_ ... $S_TIME"
+    slack ":building_construction: GNUPAR job monitoring start: *`program'* _(logs in $tmp/gnupar_`randnum')_ ... $S_TIME"
   }
 
   /* initialize a temporary dofile that will run the data generation for
@@ -3482,7 +3617,7 @@ prog def lsh
   shell ls -lh `1' `2' `3' `4' `5' `6'
 }
 end
-/* *********** END program lsm/lsh ***************************************** */
+/* *********** END program lsm / lsh ***************************************** */
 
 /************************************************************************************/
 /* program log_count : Store an observation of a variable count in an external file */
@@ -3551,10 +3686,13 @@ end
 /**********************************************************************************/
 /* program make_con_names_unique : This program "fixes" the con names of the dozen
 or so constituencies that have non-unique names within their states.
+
 Currently it operates only on the Trivedi / con_key_2008 version of the constituency
 names, and assumes that pc01_district_id exists, but if we see
 other common versions of these names, we can easily extend it.
+
 Requires a pc01_district_id or a district name
+
 */
 /***********************************************************************************/
 cap prog drop make_con_names_unique
@@ -3864,7 +4002,7 @@ prog def set_data_label
     return local p = r(p)
   }
   end
-  /* *********** END program show_coef**********************************************************************************************/
+  /* *********** END program show_coef **********************************************************************************************/
 
   /**************************************************************/
   /* program dsave: save with DDL rules: require a unique key   */
@@ -3949,14 +4087,18 @@ prog def set_data_label
   /** END program longtable *******************************************************/
 
   /****************************************************************************************/
-  /* program store_tex_constant: Store a value in a table for importing into a tex file   */
+  /* program stc: short version of store_tex_constant   */
   /****************************************************************************************/
   cap prog drop stc
   prog def stc
     syntax, file(passthru) idshort(passthru) idlong(passthru) value(passthru) desc(passthru)
     store_tex_constant, `file' `idshort' `idlong' `value' `desc'
   end
+  /** END program stc *******************************************************/
       
+  /****************************************************************************************/
+  /* program store_tex_constant: Store a value in a table for importing into a tex file   */
+  /****************************************************************************************/
   cap prog drop store_tex_constant
   prog def store_tex_constant
   {
@@ -4056,7 +4198,9 @@ prog def set_data_label
   end
   /** END program store_tex_constant ******************************************************/
 
-/* same idea as store text constant, but without the tex part. Allows a category for sorting. */
+  /****************************************************************************************/
+  /* program store_constant: same idea as store tex constant, but without the tex part. Allows a category for sorting. */
+  /****************************************************************************************/
   cap prog drop store_constant
   prog def store_constant
   {
@@ -4094,7 +4238,7 @@ prog def set_data_label
   cap prog drop rd
   prog def rd
   {
-    syntax varlist(min=2 max=2) [aweight pweight] [if], [degree(real 4) name(string) Bins(real 100) Start(real -9999) End(real -9999) MSize(string) YLabel(string) NODRAW bw xtitle(passthru) title(passthru) ytitle(passthru) xlabel(passthru) xline(passthru) absorb(string) control(string) xq(varname) cluster(passthru) xsc(passthru) fysize(passthru) fxsize(passthru) note(passthru) nofit]
+    syntax varlist(min=2 max=2) [aweight pweight] [if], [degree(real 4) name(string) Bins(real 100) Start(real -9999) End(real -9999) start_line(real -9999) end_line(real -9999) MSize(string) YLabel(string) NODRAW bw xtitle(passthru) title(passthru) ytitle(passthru) xlabel(passthru) xline(passthru) absorb(string) control(string) xq(varname) cluster(passthru) xsc(passthru) yscale(passthru) fysize(passthru) fxsize(passthru) note(passthru) nofit]
   
     tokenize `varlist'
     local xvar `2'
@@ -4115,6 +4259,14 @@ prog def set_data_label
       local start $rd_start
       local end   $rd_end
     }
+
+    /* set the start and endline points to be the same as the scatter plot if not specified */
+    //if `start_line' == -9999 {
+    //  local start_line = `start'
+    //}
+    //if `end_line' == -9999 {
+    //  local end_line = `end'
+    //}
 
     if "`msize'" == "" {
       local msize small
@@ -4170,7 +4322,7 @@ prog def set_data_label
       if mi("`xq'") {
   
         /* count the number of observations with margin and dependent var, to know how to cut into 100 */
-        count if !mi(`xvar') & !mi(`1')
+        count if !mi(`xvar') & !mi(`1') 
         local group_size = floor(`r(N)' / `bins')
   
         /* create ranked list of margins on + and - side of zero */
@@ -4203,8 +4355,9 @@ prog def set_data_label
       if mi("`weight'") {
         bys xvar_index: egen rd_bin_mean = mean(`1')
       }
+
       if "`weight'" != "" {
-        bys xvar_index: egen total_weight = total(`wtvar') if !mi(`wtvar')
+        bys xvar_index: egen total_weight = total(`wtvar')
         bys xvar_index: egen rd_bin_mean = total(`wtvar' * `1')
         replace rd_bin_mean = (rd_bin_mean / total_weight)
       }
@@ -4236,7 +4389,7 @@ prog def set_data_label
       predict l_se, stdp
       gen l_up = l_hat + 1.65 * l_se
       gen l_down = l_hat - 1.65 * l_se
-  
+      
       reg `1' `xvar' `mpoly' `wt' if `xvar' > 0, `cluster'
       predict r_hat
       predict r_se, stdp
@@ -4251,6 +4404,7 @@ prog def set_data_label
     
     /* fit polynomial to the full data, but draw the points at the mean of each bin */
     sort `xvar'
+    
     twoway ///
       (line r_hat  `xvar' if inrange(`xvar', 0, `end') & !mi(`1'), color(`color_b') msize(vtiny)) ///
       (line l_hat  `xvar' if inrange(`xvar', `start', 0) & !mi(`1'), color(`color_b') msize(vtiny)) ///
@@ -4258,7 +4412,7 @@ prog def set_data_label
       (line l_down `xvar' if inrange(`xvar', `start', 0) & !mi(`1'), color(`color_se') msize(vtiny)) ///
       (line r_up   `xvar' if inrange(`xvar', 0, `end') & !mi(`1'), color(`color_se') msize(vtiny)) ///
       (line r_down `xvar' if inrange(`xvar', 0, `end') & !mi(`1'), color(`color_se') msize(vtiny)) ///
-      (scatter rd_bin_mean xvar_group_mean if rd_tag == 1 & inrange(`xvar', `start', `end'), xline(0, lcolor(black)) msize(`msize') color(black)),  `ylabel'  name(`name', replace) legend(off) `title' `xline' `xlabel' `ytitle' `xtitle' `nodraw' `xsc' `fysize' `fxsize' `note' graphregion(color(white))
+      (scatter rd_bin_mean xvar_group_mean if rd_tag == 1 & inrange(`xvar', `start', `end'), xline(0, lcolor(black)) msize(`msize') color(black)),  `ylabel'  name(`name', replace) legend(off) `title' `xline' `xlabel' `ytitle' `xtitle' `nodraw' `xsc' `yscale' `fysize' `fxsize' `note' graphregion(color(white))
     restore
   }
   end
@@ -4330,7 +4484,7 @@ prog def set_data_label
     return local p = r(p)
   }
   end
-  /* *********** END program quireg**********************************************************************************************/
+  /* *********** END program quireg **********************************************************************************************/
   
   
   /*********************************************************************************/
@@ -4679,6 +4833,7 @@ prog def set_data_label
   }
   end
   /* *********** END program insert_est_into_file ***************************************** */
+
   /**********************************************************************************/
   /* program append_est_to_file : Appends a regression estimate to a csv file       */
   /**********************************************************************************/
@@ -4901,59 +5056,6 @@ prog def set_data_label
   end
   /* *********** END program mccrary ************************* */
   
-  
-  /**********************************************************************************/
-  /* program estout_default : Run default estout command with (1), (2), etc. column headers.
-                              Generates a .tex and .html file. "using" should not have an extension.
-  */
-  /***********************************************************************************/
-  cap prog drop estout_default
-  prog def estout_default
-  {
-    syntax [anything] using/ , [KEEP(passthru) MLABEL(passthru) ORDER(passthru) TITLE(passthru) HTMLonly PREFOOT(passthru) EPARAMS(string)]
-  
-    /* if mlabel is not specified, generate it as "(1)" "(2)" */
-    if mi(`"`mlabel'"') {
-  
-        /* run script to get right number of column headers that look like (1) (2) (3) etc. */
-        get_ecol_header_string
-  
-        /* store in a macro since estout is rclass and blows away r(col_headers) */
-        local mlabel `"mlabel(`r(col_headers)')"'
-    }
-  
-    /* if keep not specified, set to the same as order */
-    if mi("`keep'") & !mi("`order'") {
-      local keep = subinstr("`order'", "order", "keep", .)
-    }
-  
-    /* set eparams string if not specified */
-  //   if mi(`"`eparams'"') {
-  //     local eparams `"$estout_params"'
-  //   }
-  
-    /* if prefoot() is specified, pull it out of estout_params */
-    if !mi("`"prefoot"'") {
-      local eparams = subinstr(`"$estout_params"', "prefoot(\hline)", `"`prefoot'"', .)
-    }
-  
-  //  if !mi("`prefoot'") {
-  //    local eparams = subinstr(`"`eparams'"', "prefoot(\hline)", `"`prefoot'"', .)
-  // }
-  //  di `"`eparams'"'
-  
-    /* output tex file */
-    if mi("`htmlonly'") {
-      di `" estout using "`using'.tex", `mlabel' `keep' `order' `title' `eparams' "'
-      estout `anything' using "`using'.tex", `mlabel' `keep' `order' `title' `eparams'
-    }
-  
-    /* output html file for easy reading */
-    estout `anything' using "`using'.html", `mlabel' `keep' `order' `title' $estout_params_html
-  }
-  end
-  
-/* *********** END program estout_default ***************************************** */
       
 /**********************************************************************************/
 /* program reconf : Insert description here */
@@ -4965,6 +5067,7 @@ prog def reconf
   do ~/ddl/config/config
 end
 /* *********** END program reconf ***************************************** */
+
 /*****************************************************************************/
 /* program store_depvar_mean : Store mean dependent variable after an estout */
 /*****************************************************************************/
@@ -4979,8 +5082,9 @@ end
 /* *********** END program store_depvar_mean ***************************************** */
       
   /*****************************************************************************************************/
-  /* Program convert_ids: Convert easily back and forth between identifiers using a key, and write out */
+  /* program convert_ids: Convert easily back and forth between identifiers using a key, and write out */
   /*****************************************************************************************************/
+
   ////TEST:
   //use pc11_state_id pc11_district_id using $keys/lgd_pc11_district_key_weights.dta, clear
   ////keep if inlist(lgd_district_id, "175", "640", "185")
@@ -5011,11 +5115,13 @@ end
   //assert meanvar == 2 if lgd_district_id == "175"
   //assert meanvar == 1 if lgd_district_id == "185"
   //assert inrange(meanvar, 1.251, 1.253) if lgd_district_id == "640"
+
   cap prog drop convert_ids
   prog def convert_ids
     {
       /* NOTE: this program requires globals for each var e.g. $`varname'_ */
       syntax, FROM_ids(string) TO_ids(string) Key(string) WEIGHT_var(string) [VARiables(varlist) Level(string) Globals_from_csv(string) METAdata_urls(string) labels long(string)]
+
       /* pull down metadata csv and extract globals, if specified */
       if !mi("`metadata_urls'") {
         foreach url in `metadata_urls' {
@@ -5031,8 +5137,10 @@ end
       if mi("`variables'") {
         unab variables : _all
       }
+
       /* remove identifiers from varlist */
       local variables : list variables - from_ids
+
       /* assert globals exist for all vars other than ID */
       disp_nice "Globals in the form of \$[varname]_ must be set for all collapse (non-id) vars"
       foreach var in `variables' {
@@ -5042,6 +5150,7 @@ end
         }
         else disp "`var' aggregation type set to: ${`var'_}"
       }
+
       /* save mean values for each variable into locals for validation */
       foreach var in `variables' {
         qui sum `var'
@@ -5052,6 +5161,7 @@ end
       if mi("`long'") {
         isid `from_ids'
         qui merge 1:m `from_ids' using `key'
+
         /* make sure merge is decent */
         qui count
         local tot_ct `r(N)'
@@ -5076,11 +5186,14 @@ end
       
         /* extract aggregation method into its own local */
         local clean_method = lower("${`var'_}")
+
         /* aggregation type can be [min, max, mean, count, sum]. sums get iweights. */
         if inlist("`clean_method'", "sum") {
+
           /* add to collapse string - these will be weighted */
           local collapse_string `collapse_string' (`clean_method') `var'
-        }
+            }
+
         /* counts just get a binary yes/no indicating a nonmissing value; these should be 1/0 */
         else if inlist("`clean_method'", "count") {
           cap assert inlist(`var', 0, 1)
@@ -5090,11 +5203,13 @@ end
           }
           local collapse_string `collapse_string' (first) `var'        
         }
+
         /* means are a bit different. we can population-weight merges, but not splits. */
         else if inlist("`clean_method'", "mean") {
           
           /* take first value for 1:1s and splits */
           local collapse_string `collapse_string' (first) `var'
+
           /* create temp var for merges. identify the merges by finding duplicate "to" IDs */
           qui dtag `to_ids' `long'
           qui gen _`var' = `var' if dup > 0
@@ -5104,6 +5219,7 @@ end
           /* weight merges only (not splits), and add to collapse call string */
           local collapse_string `collapse_string' (mean) _`var'
         }
+
         /* for others e.g. min/max, take first value */
         else {
           local collapse_string `collapse_string' (first) `var'
@@ -5135,14 +5251,18 @@ end
         label var `var' "${`var'_label}"
         }
       }
+
       /* add dataset note */
       note: Data programmatically transformed from '`from_ids'' to '`to_ids''
     }
   end
   /* *********** END program convert_ids ***************************************** */
+
+
   /******************************************************************************************************/
-  /* Program aggmethod_globals_from_csv: pull variable collapse type globals necessary for convert_ids  */
+  /* program aggmethod_globals_from_csv: pull variable collapse type globals necessary for convert_ids  */
   /******************************************************************************************************/
+
   /* could rework this to use frames to avoid preserve/restore, but
   dont' want stata16 dependency */
   cap prog drop aggmethod_globals_from_csv
@@ -5150,6 +5270,7 @@ end
   {
     /* infile is the only argument */
     syntax anything [, labels]
+
     /* preserve data in memory */
     preserve
     
@@ -5162,6 +5283,7 @@ end
     /* read in the file */
     disp "Reading variable definitions from `infile'" _n
     qui import delimited using `infile', clear
+
     /* target variable name and aggregation method for adding to globals, as well as varlabels */
     keep variablename aggregationmethod label
     forval i = 1/`=_N' {
@@ -5180,7 +5302,8 @@ end
     restore
   }
   end
-  /* *********** END program download_gsheet ***************************************** */
+  /* *********** END program aggmethod_globals_from_csv ***************************************** */
+
 /**********************************************************************************/
 /* program fail : Fail with an error message */
 /***********************************************************************************/
@@ -5191,15 +5314,18 @@ prog def fail
   error 345
 end
 /* *********** END program fail ***************************************** */
+
   /******************************************************************************************************/
-  /* Program download_gsheet: Download a google sheet to either CSV or XLSX  */
+  /* program download_gsheet: Download a google sheet to either CSV or XLSX  */
   /******************************************************************************************************/
+
   cap prog drop download_gsheet
   prog def download_gsheet
   {
     /* target output file is the primary option */
     /* e.g.: download_gsheet $tmp/somefile.csv, key(LONG GSHEET PUBLIC KEY HERE) */
     syntax anything, Key(string)
+
     /* excise filetype from output file string */
     if regexm("`anything'",".csv$") local ftype csv
     if regexm("`anything'",".xlsx$") local ftype xlsx
@@ -5216,8 +5342,9 @@ end
   }
   end
   /* *********** END program download_gsheet ***************************************** */
+
   /******************************************************************************************************/
-  /* Program pyscript: Run external python script without silent failures.   */
+  /* program pyscript: Run external python script without silent failures.   */
   /******************************************************************************************************/
   /* all python scripts should be run this way, e.g. pyscript $tmp/example.py */
   cap prog drop pyscript
@@ -5253,18 +5380,23 @@ end
   /* *********** END program pyscript ***************************************** */
       
   /******************************************************************************************************/
-  /* Program pyfunc: Run externally defined python function without silent failures.   */
+  /* program pyfunc: Run externally defined python function without silent failures.   */
   /******************************************************************************************************/
   /* note: pyfunc exists in ~/ddl/tools/do/ado/, which is auto-loaded on polaris */
+  /****** END program pyfunc ****************/
+
   /**********************************************************************************/
   /* program interaction_term : this program interacts a varlist with a set of
   variables. the set of varibles interacted can be as long as needed, meaning the 
   function can produce simple, triple, quadruple, etc. interactions
+
   varlist: list of root variables to be interacted
   interact: a varlist to be interacted with each root variable
+
   Examples:
   interaction_term ed1 ed2 ed3, interact(scst)
     --> ed1_scst ed2_scst ed3_scst
+
   interaction_term ed1 ed2 ed3, interact(scst slum)
     --> ed1_scst_slum ed2_scst_slum ed3_scst_slum
   */
@@ -5273,10 +5405,13 @@ end
   prog def interaction_term
   {
     syntax varlist, interact(varlist)
+
     /* cycle through each primary variable that will be interacted */
     foreach var1 in `varlist' {
+
       /* use the var1 name to initiate the new name of the interaction term */
       local new_var `var1'
+
       /* create a __temp variable to hold the interaction term */
       gen __temp = `var1'
     
@@ -5289,12 +5424,15 @@ end
         /* multiply the interaction term by this variable */
         replace __temp = __temp * `i'
       }
+
       /* name the interaction term with the concatenated name */
       ren __temp `new_var'
+
     }
   }
   end
   /* *********** END program interaction_term ***************************************** */
+
 /*********************************************************/
 /* program slack: send a message to user's slack DM   */
 /*********************************************************/
@@ -5304,7 +5442,24 @@ prog def slack
   shell curl -X POST -H 'Content-type: application/json' --data '{"text":"`anything'"}' https://hooks.slack.com/services/$slackkey
 end
 /** END program slack ************************************/
+
+
+/*************************************************************************************/
+/* program distinct_within_group: check unique values of a variable within a group   */
+/*************************************************************************************/
+cap prog drop distinct_within_group
+prog def distinct_within_group
+  {
+    syntax varlist(min = 1 max = 1), group(name)
+    bys `group' `varlist': gen nvals = _n == 1 
+    by `group': replace nvals = sum(nvals)
+    by `group': replace nvals = nvals[_N]
+  }
+end
+/************* END program distinct_within_group ************************************/
+
     
   do ~/ddl/tools/do/dc_density.do
   do ~/ddl/tools/do/get_vars.do
 }
+

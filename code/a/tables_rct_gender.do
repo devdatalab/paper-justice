@@ -1,90 +1,59 @@
-/* PROGRAM TO STORE RESULTS FROM REGRESSIONS FOR STATA-TEX */
-cap prog drop store_gender
-prog def store_gender
-
-  /* syntax */
-  syntax, name(string) outcome(string) label(string)
-  local o = "`outcome'"
-  local col = "`name'"
-  local lab = "`label'"
-  
-  /* store N */
-  local obs `e(N)'
-
-  /* store control mean */
-  sum `o' if def_male == 0 & judge_male == 0 & e(sample) == 1
-  local cont: di %9.3f `r(mean)'
-  local cont_est "`cont'"     
-
-  /* store effect of male judge on female defendant */
-  local jfm: di %9.3f _b["judge_male"]
-  local se: di %9.3f _se["judge_male"]
-  local jfmse: di %9.3f _se["judge_male"]
-  test judge_male = 0
-  local p: di %5.2f (`r(p)')
-  count_stars, p(`p')
-  local jfm_est "`jfm'`r(stars)'"
-  local jfm_ci: di %5.2f invttail(e(df_r),0.025)*_se["judge_male"]
-  
-  /* store effect of male judge on male defendant */
-  local jff: di %9.3f (_b["judge_male"] + _b["judge_def_male"])
-  lincom judge_male + judge_def_male 
-  local se: di %9.3f `r(se)'
-  local jffse: di %9.3f `r(se)'
-  test judge_male + judge_def_male = 0
-  local p: di %5.2f (`r(p)')
-  count_stars, p(`p')
-  local jff_est "`jff'`r(stars)'"
-  lincom judge_male + judge_def_male
-  local jff_ci: di %5.2f invttail(e(df_r),0.025)*(_se["judge_male"] + _se["judge_def_male"])
-  
-  /* store marginal effect of male judge on male defendant */
-  local int: di %9.3f (_b["judge_def_male"])
-  local se: di %9.3f _se["judge_def_male"]
-  local intse: di %9.3f _se["judge_def_male"]
-  test judge_def_male = 0
-  local p: di %5.2f (`r(p)')
-  count_stars, p(`p')
-  local int_est "`int'`r(stars)'"
-  local int_ci: di %5.2f invttail(e(df_r),0.025)*_se["judge_def_male"]
-
-  /* display results */
-  di  %20s "`jfm_est'" %20s "`jff_est'" %25s "`int_est'" %15s "`col'"
-  
-  local demo "Male"
-  local nondemo "Female"
-  local identity "gender"
-  
-  /* store results into csv */
-  insert_into_file using $tmp/gender_`o'.csv, key(o) value("`o'") 
-  insert_into_file using $tmp/gender_`o'.csv, key(label) value("`lab'") 
-  insert_into_file using $tmp/gender_`o'.csv, key(demo) value("`demo'") 
-  insert_into_file using $tmp/gender_`o'.csv, key(nondemo) value("`nondemo'") 
-  insert_into_file using $tmp/gender_`o'.csv, key(jfm_`col') value("`jfm_est'") format(%025s)
-  insert_into_file using $tmp/gender_`o'.csv, key(jff_`col') value("`jff_est'") format(%025s)
-  insert_into_file using $tmp/gender_`o'.csv, key(cmint_`col') value("`int_est'") format(%025s)
-  insert_into_file using $tmp/gender_`o'.csv, key(sefjm_`col') value("`jfmse'") format(%025s)
-  insert_into_file using $tmp/gender_`o'.csv, key(sefjf_`col') value("`jffse'") format(%025s)
-  insert_into_file using $tmp/gender_`o'.csv, key(seint_`col') value("`intse'") format(%025s)
-  insert_into_file using $tmp/gender_`o'.csv, key(cons_`col') value("`cont_est'") format(%25s)
-  insert_into_file using $tmp/gender_`o'.csv, key(N_`col') value("`obs'") format(%25s)
-  insert_into_file using $tmp/gender_`o'.csv, key(id) value("`identity'") format(%25s)
-
-end
-
-/**********************************END PROGRAM STORE_GENDER*******************************/
-
 /* import analysis dataset */
 use $jdata/justice_analysis, clear
 
-/* generate judge male defendant muslim interaction */
-gen judge_men_def_nm = judge_male * def_nonmuslim
+/**********************************************/
+/* Store some basic statistics for validation */
+/**********************************************/
 
-/* label variable */
-la var judge_men_def_nm "Male judge with non-Muslim defendant"
+/* store time stamp */
+set_log_time
 
-/* drop bail obs */
-drop if bail == 1
+/* run main regression to tag sample */
+reghdfe acquitted judge_male def_male judge_def_male , absorb(loc_month acts) cluster(judge)
+gen sample = e(sample) == 1
+
+/* store sample count in stats csv */
+count if sample == 1
+local sample: di %5.3f `r(N)'
+store_paper_stat `sample' using $out/justice_paper_stats.csv, description("Sample: Total obs in analysis dataset") group("descriptive")
+
+/* store summary statistic in stats csv: avg acquittal rate */
+sum acq if sample == 1
+local acq_mean: di %5.3f `r(mean)'
+store_paper_stat `acq_mean' using $out/justice_paper_stats.csv, description("Mean acquittal rate in analysis sample") group("descriptive")
+
+/* store summary statistic in stats csv: avg conviction rate */
+/* note that we have non-conviction as outcome variable */
+/* conviction is the exact opposite (1-non-conviction) */
+gen conv = 1 - non_conv
+sum conv if sample == 1
+local conv_mean: di %5.3f `r(mean)'
+drop conv
+store_paper_stat `conv_mean' using $out/justice_paper_stats.csv, description("Mean conviction rate in analysis sample") group("descriptive")
+
+/* tag number of obs for which we have classified gender */
+count if !mi(def_female)
+local g_sample: di %5.3f `r(N)'
+
+/* tag number of obs for which we have classified religion */
+count if !mi(def_muslim)
+local r_sample: di %5.3f `r(N)'
+
+/* store defendant gender and religious shares in locals */
+count if def_muslim == 1
+local share_def_mus: di %5.3f `r(N)'/`r_sample'
+count if def_muslim == 0
+local share_def_nm: di %5.3f `r(N)'/`r_sample'
+count if def_female == 1
+local share_def_fem: di %5.3f `r(N)'/`g_sample'
+count if def_female == 0
+local share_def_mal: di %5.3f `r(N)'/`g_sample'
+
+/* store defendant demographic shares in paper stats csv */
+store_paper_stat `share_def_mus' using $out/justice_paper_stats.csv, description("Defendant share: Muslim") group("descriptive")
+store_paper_stat `share_def_nm' using $out/justice_paper_stats.csv, description("Defendant share: non-Muslim") group("descriptive")
+store_paper_stat `share_def_fem' using $out/justice_paper_stats.csv, description("Defendant share: female") group("descriptive")
+store_paper_stat `share_def_mal' using $out/justice_paper_stats.csv, description("Defendant share: male") group("descriptive")
 
 /**********************/
 /* Outcome: Acquitted */
@@ -102,6 +71,17 @@ store_gender, name("col2") outcome("acquitted") label("Acquittal rate")
 reghdfe acquitted judge_male def_male judge_def_male def_nonmuslim judge_men_def_nm , absorb(loc_month acts judge) cluster(judge)
 store_gender, name("col3") outcome("acquitted") label("Acquittal rate")
 
+/* store analysis sample count in local */
+count if e(sample) == 1
+local gb_cm_n = `r(N)'
+
+/* store gender bias effect from column 3 in local */
+local gb_cm: di _b["judge_def_male"]
+store_paper_stat `gb_cm' using $out/justice_paper_stats.csv, description("Gender bias acquittal - court-month: coef") group("main bias results")  
+
+/* store sample from column 3 in local */
+store_paper_stat `gb_cm_n' using $out/justice_paper_stats.csv, description("Gender bias acquittal - court-month: sample") group("main bias results")  
+
 /* column 4 */
 reghdfe acquitted judge_male def_male judge_def_male , absorb(loc_year acts) cluster(judge)
 store_gender, name("col4") outcome("acquitted") label("Acquittal rate")
@@ -114,7 +94,19 @@ store_gender, name("col5") outcome("acquitted") label("Acquittal rate")
 reghdfe acquitted judge_male def_male judge_def_male def_nonmuslim judge_men_def_nm , absorb(loc_year acts judge) cluster(judge)
 store_gender, name("col6") outcome("acquitted") label("Acquittal rate")
 
-table_from_tpl, t($jcode/a/tpl/g_template.tex) r($tmp/gender_acquitted.csv) o($out/gender_acquitted.tex)
+/* store analysis sample count in local */
+count if e(sample) == 1
+local gb_cy_n = `r(N)'
+
+/* store bias effect from column 6 in local */
+local gb_cy: di _b["judge_def_male"]
+store_paper_stat `gb_cy' using $out/justice_paper_stats.csv, description("Gender bias acquittal - court-year: coef") group("main bias results")  
+
+/* store sample from column 6 in local */
+store_paper_stat `gb_cy_n' using $out/justice_paper_stats.csv, description("Gender bias acquittal - court-year: sample") group("main bias results")  
+
+/* write regression table */
+table_from_tpl, t($out/g_template.tex) r($tmp/gender_acquitted.csv) o($out/gender_acquitted.tex)
 
 /*************************/
 /* Outcome: Any decision */
@@ -122,29 +114,54 @@ table_from_tpl, t($jcode/a/tpl/g_template.tex) r($tmp/gender_acquitted.csv) o($o
 
 /* column 1 */
 reghdfe decision judge_male def_male judge_def_male , absorb(loc_month acts) cluster(judge)
-store_gender, name("col1") outcome("decision") label("Any decision at all")
+store_gender, name("col1") outcome("decision") label("Decision within six months of filing")
 
 /* column 2 */
 reghdfe decision judge_male def_male judge_def_male def_nonmuslim judge_men_def_nm , absorb(loc_month acts) cluster(judge)
-store_gender, name("col2") outcome("decision") label("Any decision at all")
+store_gender, name("col2") outcome("decision") label("Decision within six months of filing")
 
 /* column 3 */
 reghdfe decision judge_male def_male judge_def_male def_nonmuslim judge_men_def_nm , absorb(loc_month acts judge) cluster(judge)
-store_gender, name("col3") outcome("decision") label("Any decision at all")
+store_gender, name("col3") outcome("decision") label("Decision within six months of filing")
+
+/* store sample from column 3 in local */
+count if e(sample) == 1
+local gb_cm_n = `r(N)'
+
+/* store bias effect for stats csv*/
+local gb_cm: di _b["judge_def_male"]
+store_paper_stat `gb_cm' using $out/justice_paper_stats.csv, description("Gender bias decision - court-month: coef") group("main bias results")  
+
+/* store sample for stats csv */
+store_paper_stat `gb_cm_n' using $out/justice_paper_stats.csv, description("Gender bias decision - court-month: sample") group("main bias results")  
 
 /* column 4 */
 reghdfe decision judge_male def_male judge_def_male , absorb(loc_year acts) cluster(judge)
-store_gender, name("col4") outcome("decision") label("Any decision at all")
+store_gender, name("col4") outcome("decision") label("Decision within six months of filing")
 
 /* column 5 */
 reghdfe decision judge_male def_male judge_def_male def_nonmuslim judge_men_def_nm , absorb(loc_year acts) cluster(judge)
-store_gender, name("col5") outcome("decision") label("Any decision at all")
+store_gender, name("col5") outcome("decision") label("Decision within six months of filing")
 
 /* column 6 */
 reghdfe decision judge_male def_male judge_def_male def_nonmuslim judge_men_def_nm , absorb(loc_year acts judge) cluster(judge)
-store_gender, name("col6") outcome("decision") label("Any decision at all")
+store_gender, name("col6") outcome("decision") label("Decision within six months of filing")
 
-table_from_tpl, t($jcode/a/tpl/g_template.tex) r($tmp/gender_decision.csv) o($out/gender_decision.tex)
+/* store sample from column 6 in a local */
+count if e(sample) == 1
+local gb_cy_n = `r(N)'
+
+/* store bias effect from column 6 in local*/
+local gb_cy: di _b["judge_def_male"]
+
+/* write bias effect from column 6 in stats csv */
+store_paper_stat `gb_cy' using $out/justice_paper_stats.csv, description("Gender bias decision - court-year: coef") group("main bias results")  
+
+/* write sample from column 6 in stats csv */
+store_paper_stat `gb_cy_n' using $out/justice_paper_stats.csv, description("Gender bias decision - court-year: sample") group("main bias results")  
+
+/* write regression table */
+table_from_tpl, t($out/g_template.tex) r($tmp/gender_decision.csv) o($out/gender_decision.tex)
 
 /**************************/
 /* Outcome: Not convicted */
@@ -174,13 +191,13 @@ store_gender, name("col5") outcome("non_convicted") label("Not convicted")
 reghdfe non_convicted judge_male def_male judge_def_male def_nonmuslim judge_men_def_nm , absorb(loc_year acts judge) cluster(judge)
 store_gender, name("col6") outcome("non_convicted") label("Not convicted")
 
-table_from_tpl, t($jcode/a/tpl/g_template.tex) r($tmp/gender_non_convicted.csv) o($out/gender_non_convicted.tex)
+table_from_tpl, t($out/g_template.tex) r($tmp/gender_non_convicted.csv) o($out/gender_non_convicted.tex)
 
 /***************************/
 /* Drop ambiguous outcomes */
 /***************************/
 
-drop if negative == . 
+drop if ambiguous == 1
 
 /* Outcome: Acquitted */
 
@@ -208,4 +225,44 @@ store_gender, name("col5") outcome("acquitted") label("Acquittal rate")
 reghdfe acquitted judge_male def_male judge_def_male def_nonmuslim judge_men_def_nm , absorb(loc_year acts judge) cluster(judge)
 store_gender, name("col6") outcome("acquitted") label("Acquittal rate")
 
-table_from_tpl, t($jcode/a/tpl/g_template.tex) r($tmp/gender_acquitted.csv) o($out/gender_acquitted_amb.tex)
+table_from_tpl, t($out/g_template.tex) r($tmp/gender_acquitted.csv) o($out/gender_acquitted_amb.tex)
+
+/*****************************/
+/* Keep only years 2014-2018 */
+/*****************************/
+
+use $jdata/justice_analysis, clear
+
+keep if year >= 2014
+
+/* Outcome: Acquitted */
+
+/* column 1 */
+reghdfe acquitted judge_male def_male judge_def_male , absorb(loc_month acts) cluster(judge)
+store_gender, name("col1") outcome("acquitted") label("Acquittal rate")
+
+/* column 2 */
+reghdfe acquitted judge_male def_male judge_def_male def_nonmuslim judge_men_def_nm , absorb(loc_month acts) cluster(judge)
+store_gender, name("col2") outcome("acquitted") label("Acquittal rate")
+
+/* column 3 */
+reghdfe acquitted judge_male def_male judge_def_male def_nonmuslim judge_men_def_nm , absorb(loc_month acts judge) cluster(judge)
+store_gender, name("col3") outcome("acquitted") label("Acquittal rate")
+
+/* column 4 */
+reghdfe acquitted judge_male def_male judge_def_male , absorb(loc_year acts) cluster(judge)
+store_gender, name("col4") outcome("acquitted") label("Acquittal rate")
+
+/* column 5 */
+reghdfe acquitted judge_male def_male judge_def_male def_nonmuslim judge_men_def_nm , absorb(loc_year acts) cluster(judge)
+store_gender, name("col5") outcome("acquitted") label("Acquittal rate")
+
+/* column 6 */
+reghdfe acquitted judge_male def_male judge_def_male def_nonmuslim judge_men_def_nm , absorb(loc_year acts judge) cluster(judge)
+store_gender, name("col6") outcome("acquitted") label("Acquittal rate")
+
+table_from_tpl, t($out/g_template.tex) r($tmp/gender_acquitted.csv) o($out/gender_acquitted_high_match.tex)
+
+
+
+

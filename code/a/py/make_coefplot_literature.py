@@ -4,7 +4,47 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 from shutil import copyfile
+from pathlib import Path
 
+# get the environment variables
+TMP = Path(os.environ.get('TMP'))
+IEC = Path(os.environ.get('IEC'))
+
+###############################
+# PREPARE THE DATA            #
+###############################
+
+# read in the data
+df = pd.read_stata(os.path.join(TMP, "lit_coefs.dta"))
+
+# put the values we want to use in the 'coef' and 'se' fields (even though other stuff is currently there)
+df.coef = df.std_effect_size
+df.se   = df.std_se
+
+# drop empty rows
+df = df[~np.isnan(df['coef'])]
+
+# calculate the width of a 95% confidence interval
+df['ci'] = df['se'] * 1.96
+
+# pick better display names for this study
+df.loc[df.name == 'Table 5-gender', 'name'] = 'Gender bias in this paper (India N=5155378)'
+df.loc[df.name == 'Table 6-religion', 'name'] = 'Religion bias in this paper (India N=5240140)'
+
+# drop all Ash rows from this study except the first two
+df.drop(df[df.study.str.contains(r'ash-[c-g]')].index, inplace=True)
+
+# sort by coefficient magnitude
+df['abs_coef'] = abs(df['coef'])
+df['not_this'] = 1 - df['this']
+
+df.sort_values(by=['not_this', 'abs_coef'], inplace=True)
+
+##################
+# Make the graph #
+##################
+
+# set graph defaults
 mpl.rcParams['mathtext.fontset'] = 'custom'
 mpl.rcParams['mathtext.rm'] = 'Bitstream Vera Sans'
 mpl.rcParams['mathtext.it'] = 'Bitstream Vera Sans:italic'
@@ -12,13 +52,6 @@ mpl.rcParams['mathtext.bf'] = 'Bitstream Vera Sans:bold'
 
 mpl.rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
 mpl.rc('text', usetex=True)
-
-# read in the data
-df = pd.read_stata(os.path.join(TMP, "lit_coefs.dta"))
-
-# convert coefficients to numeric
-df['coef'] = df['coef'].astype(float)
-df['coef'] = df['coef'].sort_values()
 
 # define function to assign color based on sign of coefficient
 def define_color(val):
@@ -48,7 +81,7 @@ ax.scatter(y=np.arange(df['coef'].shape[0]), x=df['coef'],
 
 # plot the dashed line before total crimes
 ax.plot([-13.5,13.5], [1.5,1.5], linestyle="-.", color="black", linewidth=0.5)
-ax.axvline(x=0, linestyle="solid", color="#d6d6d6", linewidth=0.5)
+ax.axvline(x=0, linestyle="-.", color="black", linewidth=0.6)
 
 # overwrite yticklabels with proper labels
 labs = ax.set_yticklabels(df["name"], fontsize=28, color="black")
@@ -63,8 +96,9 @@ for p in ax.patches:
 
 # format axes
 ax.tick_params(axis="x", labelsize=24)
-ax.set_xlim([-0.8,1.8])
-ax.set_ylim([-0.8,12])
+ax.set_xlim([-1,1])
+ax.set_ylim([-0.8,11])
+plt.xlabel("Standardized In-group Bias Effect", fontsize = 24)
 
 # ax.set_title("Point estimates of judicial in-group bias in the literature", fontsize=18, fontweight = "bold", color="black")
 

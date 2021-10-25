@@ -1,5 +1,5 @@
 /* open the coefficient file from the literature */
-use $tmp/lit_coefs, clear
+use $jdata/lit_coefs, clear
 
 /* create nicer labels */
 replace study = "Lim et al. (2016)" if strpos(study, "Lim, Sil")

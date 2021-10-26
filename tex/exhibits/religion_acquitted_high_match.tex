@@ -1,0 +1,24 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{6}{c}}
+  \hline\hline
+\multicolumn{7}{c}{\textit{Outcome variable: Acquittal rate}}\\
+\hline
+&\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}\\
+\hline
+Non-Muslim judge on Muslim defendant \hspace{15mm}& 0.008 & 0.008 & --- & 0.008 & 0.007 & --- \\
+& (0.004) & (0.005) &  & (0.004) &(0.005) &  \\
+Non-Muslim judge on non-Muslim defendant \hspace{15mm}& 0.008** & 0.008* & ---& 0.008*** & 0.007* & --- \\
+& (0.003) & (0.004) &  & (0.003) & (0.004) &  \\
+\textbf{Difference = Own religion bias} & 0.000 & 0.000 & 0.001 & 0.000 & 0.001 & 0.001 \\
+& (0.003) & (0.003) & (0.002) & (0.003) & (0.003) & (0.002) \\
+\hline
+Reference group mean & 0.156 & 0.159 & 0.159 & 0.156 & 0.159 & 0.159 \\
+Observations & 5237310 & 4829586 & 4828147 & 5245681 & 4838328 & 4836629 \\
+Demographic controls & No & Yes & Yes & No & Yes & Yes \\
+Judge fixed effect & No & No & Yes & No & No & Yes \\
+Fixed Effect & Court-month & Court-month & Court-month & Court-year & Court-year & Court-year \\
+\hline\hline
+\end{tabular}
+}
+ 

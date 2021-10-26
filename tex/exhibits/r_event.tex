@@ -1,0 +1,23 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\hline\hline
+                    &\multicolumn{2}{c}{Gender}                 &\multicolumn{2}{c}{Religion}               \\\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
+                    &\multicolumn{1}{c}{Acquitted}&\multicolumn{1}{c}{Acquitted}&\multicolumn{1}{c}{Acquitted}&\multicolumn{1}{c}{Acquitted}\\
+\hline
+Pro-defendant transition&      0.0133         &     0.00197         &    -0.00998         &     -0.0118         \\
+                    &    (0.0111)         &    (0.0129)         &    (0.0172)         &    (0.0185)         \\
+Against-defendant transition&    -0.00265         &     -0.0137         &    -0.00773         &     -0.0140         \\
+                    &    (0.0102)         &    (0.0120)         &    (0.0168)         &    (0.0189)         \\
+Constant composition judge transition&     -0.0126\sym{**} &    -0.00852         &     -0.0151\sym{***}&     -0.0147\sym{**} \\
+                    &   (0.00541)         &   (0.00607)         &   (0.00556)         &   (0.00610)         \\
+\hline
+Observations        &      437689         &      390749         &      582649         &      531183         \\
+Mean Acquittal      &       0.202         &       0.202         &       0.203         &       0.203         \\
+Fixed Effect        & Court-month         &  Court-year         & Court-month         &  Court-year         \\
+\hline\hline
+\multicolumn{5}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

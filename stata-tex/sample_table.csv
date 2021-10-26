@@ -1,0 +1,24 @@
+treatment1_p, 0.60
+treatment1_beta,-0.738
+treatment1_starbeta,-0.738
+treatment1_se, 1.396
+treatment1_n,74
+treatment1_r2, 0.00
+treatment2_p, 0.04
+treatment2_beta, 2.877
+treatment2_starbeta,2.877**
+treatment2_se, 1.356
+treatment2_n,74
+treatment2_r2, 0.06
+treatment3_p, 0.85
+treatment3_beta, 0.272
+treatment3_starbeta, 0.272
+treatment3_se, 1.410
+treatment3_n,74
+treatment3_r2, 0.00
+treatment4_p, 0.28
+treatment4_beta, 1.500
+treatment4_starbeta, 1.500
+treatment4_se, 1.390
+treatment4_n,74
+treatment4_r2, 0.02

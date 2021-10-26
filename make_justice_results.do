@@ -16,9 +16,26 @@ $tmp: intermediate data files will be put here
 $jcode: path to folder of build and analysis .do and .py files*/
 
 global out 
-global jdata ~/secc/frozen_data/justice/bias_replication
-global tmp  ~/secc/frozen_data/justice/bias_replication
-global jcode $ddl/paper-justice/code
+global jdata ~/secc/frozen/justice/bias-replication
+global tmp  
+global jcode ~/ddl/paper-justice/code
+
+if mi("$out") | mi("$tmp") | mi("$datapath, eg.$mining") {
+  display as error "Globals 'out', 'tmp', and 'datapath, eg.$mining' must be set for this to run."
+  error 1
+}
+
+/* load Stata programs */
+qui do tools.do
+qui do masala-merge/masala_merge
+qui do stata-tex/stata-tex
+
+/* add ado folder to adopath */
+adopath + ado
+
+cap log close
+log using $out/logfilename.log, text replace
+
 
 /* define programs for justice analysis */
 do $jcode/ado/justice_programs.do
@@ -68,3 +85,5 @@ do $jcode/a/court_count_district.do
 /* note that environment py_spatial should be activated */
 /* for script below to run */
 shell python $jcode/a/py/court_count_maps.py
+
+log close

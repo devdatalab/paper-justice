@@ -57,12 +57,12 @@ replace study = "" if this == 1
 sort se
 twoway ///
     (scatter se coef if this == 1, msymbol(circle hollow) mlabel(study) mlabposition(3) mlabsize(vsmall) mlabcolor(black) mcolor(red)) ///
-    (scatter se coef if this == 0, mlabel(study) mlabposition(12) mlabsize(vsmall) mlabcolor(black)) ///
+    (scatter se coef if this == 0, mlabel(study) mlabposition(12) mlabsize(vsmall) mcolor(black) mlabcolor(black)) ///
     (line se threshold95, lpattern(dash) color("$fitcolor")) ///
     (line se mthreshold95, lpattern(dash) color("$fitcolor")) ///
     , xlabel(-.6(.2).6) xscale(range(-0.6 0.6)) xtitle("Standardized In-Group Bias Effect") ylabel(0(.05).2) ysc(reverse) ///
     legend(size(small) region(lcolor(black)) ring(0) pos(1) order(1 2) lab(1 "This study") lab(2 "Prior studies")) ///
-    text(.47 .83 "Threshold where" "95% CI excludes 0", color("$fitcolor") justification(left) size(vsmall))
+    text(.18 .45 "Threshold where" "95% CI excludes 0", color("$fitcolor") justification(left) size(vsmall))
 
 graphout pub_bias, pdf
 
@@ -70,6 +70,39 @@ exit
 exit
 exit
 
+/* generate data for a non-biased pub bias plot */
+drop in 1/18
+set obs 100
+replace se = uniform() / 5
+replace coef = .07 + rnormal() * se
+replace threshold95 = se * 1.96
+replace threshold90 = se * 1.96
+replace mthreshold95 = -se * 1.96
+replace mthreshold90 = -se * 1.96
+twoway ///
+    (scatter se coef, msymbol(circle hollow) mlabel(study) mlabposition(3) mlabsize(vsmall) mlabcolor(black) mcolor(red)) ///
+    (line se threshold95, lpattern(dash) color("$fitcolor")) ///
+    (line se mthreshold95, lpattern(dash) color("$fitcolor")) ///
+    , legend(off) xlabel(-.6(.2).6) xscale(range(-0.6 0.6)) ytitle("Standard Error") xtitle("Effect Size") ylabel(0(.05).2) ysc(reverse) ///
+    text(.18 .45 "Threshold where" "95% CI excludes 0", color("$fitcolor") justification(left) size(vsmall))
+graphout pyramid1, pdf
+
+twoway ///
+    (scatter se coef if abs(coef / se) > 1.96, msymbol(circle hollow) mlabel(study) mlabposition(3) mlabsize(vsmall) mlabcolor(black) mcolor(red)) ///
+    (line se threshold95, lpattern(dash) color("$fitcolor")) ///
+    (line se mthreshold95, lpattern(dash) color("$fitcolor")) ///
+    , legend(off) xlabel(-.6(.2).6) xscale(range(-0.6 0.6)) ytitle("Standard Error") xtitle("Effect Size") ylabel(0(.05).2) ysc(reverse) ///
+    text(.18 .45 "Threshold where" "95% CI excludes 0", color("$fitcolor") justification(left) size(vsmall))
+graphout pyramid2, pdf
+
+
+
+
+
+
+ext
+exit
+exit
 /* draw a graph without our study for twitter */
 sort se
 twoway ///

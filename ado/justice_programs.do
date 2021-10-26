@@ -808,3 +808,70 @@ prog def get_string
 
 end
 /** END program get_string ********************************/
+
+/**********************************************************/
+/* program fix_names: force names into common spellings   */
+/**********************************************************/
+cap prog drop fix_names
+prog def fix_names
+  syntax varlist
+  tokenize `varlist'
+
+  replace `1' = "adhikari" if `1' == "adhikary"
+  replace `1' = "agarwal" if `1' == "agrawal"
+  replace `1' = "agarwal" if `1' == "aggarwal"
+  replace `1' = "ahamad" if `1' == "ahamed"
+  replace `1' = "ahamad" if `1' == "ahmad"
+  replace `1' = "ahamad" if `1' == "ahmed"
+  replace `1' = "begam" if `1' == "begum"
+  replace `1' = "behera" if `1' == "bera"
+  replace `1' = "bhat" if `1' == "bhatt"
+  replace `1' = "bhosale" if `1' == "bhosle"
+  replace `1' = "bhowmick" if `1' == "bhowmik"
+  replace `1' = "bora" if `1' == "borah"
+  replace `1' = "chand" if `1' == "chanda"
+  replace `1' = "chaudhari" if `1' == "chaudhary"
+  replace `1' = "chetri" if `1' == "chettri"
+  replace `1' = "choudhary" if `1' == "choudhry"
+  replace `1' = "choudhary" if `1' == "choudhury"
+  replace `1' = "choudhary" if `1' == "chowdhury"
+  replace `1' = "dahariya" if `1' == "dahiya"
+  replace `1' = "dahariya" if `1' == "dahriya"
+  replace `1' = "dube" if `1' == "dubey"
+  replace `1' = "gouda" if `1' == "gowda"
+  replace `1' = "haldar" if `1' == "halder"
+  replace `1' = "husain" if `1' == "hussain"
+  replace `1' = "jadav" if `1' == "jadhav"
+  replace `1' = "kala" if `1' == "kale"
+  replace `1' = "karthick" if `1' == "karthik"
+  replace `1' = "krishna" if `1' == "krishnaiah"
+  replace `1' = "krishna" if `1' == "krishnan"
+  replace `1' = "kushwah" if `1' == "kushwaha"
+  replace `1' = "mahesh" if `1' == "mahesha"
+  replace `1' = "malik" if `1' == "mallick"
+  replace `1' = "manjunath" if `1' == "manjunatha"
+  replace `1' = "narain" if `1' == "narayan"
+  replace `1' = "nigam" if `1' == "nikam"
+  replace `1' = "panda" if `1' == "pande"
+  replace `1' = "panda" if `1' == "pandey"
+  replace `1' = "panda" if `1' == "pandy"
+  replace `1' = "panda" if `1' == "pandya"
+  replace `1' = "pandit" if `1' == "pandita"
+  replace `1' = "panigrahi" if `1' == "panigrahy"
+  replace `1' = "patel" if `1' == "patil"
+  replace `1' = "pattanaik" if `1' == "pattnaik"
+  replace `1' = "pavar" if `1' == "pawar"
+  replace `1' = "rajasekar" if `1' == "rajasekhar"
+  replace `1' = "sahoo" if `1' == "sahu"
+  replace `1' = "sarma" if `1' == "sarmah"
+  replace `1' = "satapathy" if `1' == "satpathy"
+  replace `1' = "sethi" if `1' == "sethy"
+  replace `1' = "shaik" if `1' == "shaikh"
+  replace `1' = "shaik" if `1' == "sheik"
+  replace `1' = "shukl" if `1' == "shukla"
+  replace `1' = "suryavanshi" if `1' == "suryawanshi"
+  replace `1' = "tiwari" if `1' == "tiwary"
+  replace `1' = "tripathi" if `1' == "tripathy"
+  
+end
+/** END program fix_names *********************************/

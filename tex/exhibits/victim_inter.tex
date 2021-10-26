@@ -1,0 +1,32 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\resizebox{\textwidth}{!}{
+
+\begin{tabular}{l*{3}{c}}
+\hline\hline
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}\\
+                    &\multicolumn{1}{c}{Acquitted}&\multicolumn{1}{c}{Acquitted}&\multicolumn{1}{c}{Acquitted}\\
+\hline
+In-group Bias        &       0.004         &       0.001         &       0.000         \\
+                    &     (0.003)         &     (0.005)         &     (0.002)         \\
+[1em]
+In-group Bias * Victim Gender Mismatch&      -0.006         &                     &                     \\
+                    &     (0.005)         &                     &                     \\
+[1em]
+In-group Bias * Victim Religion Mismatch&                     &       0.007         &                     \\
+                    &                     &     (0.008)         &                     \\
+[1em]
+In-group Bias * Crime Against Women&                     &                     &      -0.009         \\
+                    &                     &                     &     (0.007)         \\
+\hline
+Observations        &     1790929         &     2022473         &     5149667         \\
+Fixed Effect        & Court-month         & Court-month         & Court-month         \\
+Judge Fixed Effect   &         Yes         &         Yes         &         Yes         \\
+Bias                &      Gender         &    Religion         &      Gender         \\
+Sample              &         All         &         All         &         All         \\
+\hline\hline
+\multicolumn{4}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}
+}

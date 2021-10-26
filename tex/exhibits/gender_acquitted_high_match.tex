@@ -1,0 +1,28 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{6}{c}}
+  \hline\hline
+\multicolumn{7}{c}{\textit{Outcome variable: Acquittal rate}}\\
+\hline
+&\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}\\
+\hline
+Male judge on female defendant \hspace{15mm} & -0.009*** & -0.009*** & --- & -0.009*** & -0.008*** & --- \\
+& (0.003) & (0.003) &  & (0.002) &(0.003) &  \\
+Male judge on male defendant \hspace{15mm} & -0.007*** & -0.007*** & ---& -0.007*** & -0.006** & --- \\
+& (0.002) & (0.003) &  & (0.002) & (0.003) &  \\
+\textbf{Difference = Own gender bias} \hspace{15mm} & 0.002 & 0.002 & 0.000 & 0.002 & 0.002 & 0.000 \\
+& (0.002) & (0.002) & (0.002) & (0.002) & (0.002) & (0.002) \\
+\hline
+Reference group mean & 0.156 & 0.157 & 0.157 & 0.157 & 0.158 & 0.158 \\
+Observations & 4838005 & 4752974 & 4751550 & 4846724 & 4761759 & 4760079 \\
+Demographic controls & No & Yes & Yes & No & Yes & Yes \\
+Judge fixed effect & No & No & Yes & No & No & Yes \\
+Fixed Effect & Court-month & Court-month & Court-month & Court-year & Court-year & Court-year \\
+\hline\hline
+%\multicolumn{6}{l}{\footnotesize \textit{Standard errors in parentheses}}\\
+%\multicolumn{6}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+%\multicolumn{6}{l}{\footnotesize \textit{Reference group: Female judges, female defendants}}\\
+%\multicolumn{6}{l}{\footnotesize Specification: \textit{Y_{i,c,t} $=$ \alpha $+$ \beta_{1} \text{judge\_male}_{i,c,t} $+$ \beta_{2} \text{def\_male}_{i,c,t}  $+$  \beta_{3} \text{judge\_male}_{i,c,t}\sym{*}\text{def\_male}_{i,c,t} $+$ \phi_{c,t} $+$ \delta \chi_{i,c,t} $+$ \epsilon}}\\
+\end{tabular}
+}
+ 

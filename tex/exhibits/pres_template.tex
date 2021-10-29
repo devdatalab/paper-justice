@@ -1,0 +1,25 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+  \hline\hline
+&\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
+&\multicolumn{1}{c}{Acquitted}&\multicolumn{1}{c}{Acquitted}&\multicolumn{1}{c}{Any
+  decision}&\multicolumn{1}{c}{Any decision}\\
+\hline
+$$demo$$ judge on $$nondemo$$ defendant (\beta_{1}) & $$cmfjm_acquitted$$ & $$cyfjm_acquitted$$ & $$cmfjm_decision$$& $$cyfjm_decision$$\\
+& ($$cmsefjm_acquitted$$) & ($$cysefjm_acquitted$$) & ($$cmsefjm_decision$$)& ($$cysefjm_decision$$)\\
+$$demo$$ judge on $$demo$$ defendant (\beta_{1} + \beta_{3}) & $$cmfjf_acquitted$$ & $$cyfjf_acquitted$$ & $$cmfjf_decision$$& $$cyfjf_decision$$\\
+ & ($$cmsefjf_acquitted$$) & ($$cysefjf_acquitted$$) & ($$cmsefjf_decision$$) & ($$cysefjf_decision$$)\\
+\textbf{Own $$id$$ bias} (\beta_{3})& $$cmint_acquitted$$ & $$cyint_acquitted$$ & $$cmint_decision$$ & $$cyint_decision$$\\
+& ($$cmseint_acquitted$$) & ($$cyseint_acquitted$$) & ($$cmseint_decision$$) & ($$cyseint_decision$$)\\
+\hline
+Reference group mean & $$cmcons_acquitted$$ & $$cycons_acquitted$$& $$cmcons_decision$$ & $$cycons_decision$$\\
+Observations        &    $$cmN_acquitted$$ &     $$cyN_acquitted$$         &    $$cmN_decision$$ &    $$cyN_decision$$ \\
+Fixed effect & Court-month & Court-year & Court-month & Court-year\\
+\hline\hline
+\multicolumn{4}{l}{\footnotesize \textit{Standard errors in parentheses}}\\
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\multicolumn{4}{l}{\footnotesize \textit{Reference group: $$nondemo$$ judges, $$nondemo$$ defendants}}\\
+\multicolumn{4}{l}{\footnotesize Specification: \textit{Y_{i,c,t} $=$ \alpha $+$ \beta_{1} \text{judge\_$$demo$$}_{i,c,t} $+$ \beta_{2} \text{def\_$$demo$$}_{i,c,t}  $+$  \beta_{3} \text{judge\_$$demo$$}_{i,c,t}\sym{*}\text{def\_$$demo$$}_{i,c,t} $+$ \phi_{c,t} $+$ \delta \chi_{i,c,t} $+$ \epsilon}}\\
+\end{tabular}
+}

@@ -38,13 +38,13 @@ count if e(sample) == 1
 local balance_count: di `r(N)'
 
 /* write out balance test sample to a csv */  
-store_paper_stat `balance_count' using $out/justice_paper_stats.csv, description("Balance: Sample size (Col (1) only)") group("balance")
+store_validation_data `balance_count' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Balance: Sample size (Col (1) only)") group("balance")
 
 /* store balance test 1 coefficients in stats csv */
 local ff_coef_cm: di _b["def_female"]
-store_paper_stat `ff_coef_cm' using $out/justice_paper_stats.csv, description("Balance: female judge X female def - court-month") group("balance")  
+store_validation_data `ff_coef_cm' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Balance: female judge X female def - court-month") group("balance")  
 local fm_coef_cm: di _b["def_muslim"]
-store_paper_stat `fm_coef_cm' using $out/justice_paper_stats.csv, description("Balance: female judge X muslim def - court-month") group("balance")  
+store_validation_data `fm_coef_cm' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Balance: female judge X muslim def - court-month") group("balance")  
 
 /* store estimates for regression table */ 
 estadd local FE "Court-month"
@@ -59,18 +59,18 @@ estimates store m2
 
 /* store balance test 2 coefficients in stats csv */
 local ff_coef_cy: di _b["def_female"]
-store_paper_stat `ff_coef_cy' using $out/justice_paper_stats.csv, description("Balance: female judge X female def - court-year") group("balance")  
+store_validation_data `ff_coef_cy' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Balance: female judge X female def - court-year") group("balance")  
 local fm_coef_cy: di _b["def_muslim"]
-store_paper_stat `fm_coef_cy' using $out/justice_paper_stats.csv, description("Balance: female judge X muslim def - court-year") group("balance")  
+store_validation_data `fm_coef_cy' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Balance: female judge X muslim def - court-year") group("balance")  
   
 /* balance test 3: muslim defendant not more likely to get muslim judge, month FE */
 reghdfe judge_muslim def_female def_muslim  if lmr_sample_acq == 1, absorb(loc_month acts) cluster(judge)
 
 /* store coefficients in stats csv */
 local mm_coef_cm: di _b["def_muslim"]
-store_paper_stat `mm_coef_cm' using $out/justice_paper_stats.csv, description("Balance: muslim judge X muslim def - court-month") group("balance")  
+store_validation_data `mm_coef_cm' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Balance: muslim judge X muslim def - court-month") group("balance")  
 local mf_coef_cm: di _b["def_female"]
-store_paper_stat `mf_coef_cm' using $out/justice_paper_stats.csv, description("Balance: muslim judge X female def - court-month") group("balance")  
+store_validation_data `mf_coef_cm' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Balance: muslim judge X female def - court-month") group("balance")  
 
 /* store results for regression table */  
 estadd local FE "Court-month"
@@ -81,9 +81,9 @@ reghdfe judge_muslim def_female def_muslim  if lyr_sample_acq == 1, absorb(loc_y
 
 /* store coefficients in stats csv */
 local mm_coef_cy: di _b["def_muslim"]
-store_paper_stat `mm_coef_cy' using $out/justice_paper_stats.csv, description("Balance: muslim judge X muslim def - court-year") group("balance")  
+store_validation_data `mm_coef_cy' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Balance: muslim judge X muslim def - court-year") group("balance")  
 local mf_coef_cy: di _b["def_female"]
-store_paper_stat `mf_coef_cy' using $out/justice_paper_stats.csv, description("Balance: muslim judge X female def - court-year") group("balance")  
+store_validation_data `mf_coef_cy' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Balance: muslim judge X female def - court-year") group("balance")  
 
 /* store results for regression table */  
 estadd local FE "Court-year"
@@ -91,4 +91,6 @@ estimates store m4
 
 /* output panel  */
 esttab m1 m2 m3 m4 using "$out/random_acq.tex", replace se(3) label star(* 0.10 ** 0.05 *** 0.01) scalars("FE Fixed Effect") drop(_cons) b(3)
+
+drop(_cons) b(3)
 

@@ -15,7 +15,6 @@ keep ddl_case_id rct_court_size
 la var rct_court_size "Court size distribution (Median: 5)"
 
 /* graph distribution of court size */
-set scheme pn
 twoway histogram rct_court_size if !mi(rct_court_size) & rct_court_size < 15, width(1) color(cranberry) ///        
         legend(off) xtitle("No. of judges in court") text(.12 5.8 "Median: 5", size(small)) xline(5)
-graphout court_size, png
+graphout court_size

@@ -15,10 +15,10 @@ $repdata: path to initial data inputs
 $tmp: intermediate data files will be put here
 $jcode: path to folder of build and analysis .do and .py files*/
 
-global out ~/paper-justice/exhibits
-global jdata /scratch/adibmk/justice
-global tmp  /scratch/f004qzy/justice-test
-global jcode ~/paper-justice/code
+global out ~/ddl/paper-justice/tex/exhibits
+global jdata ~/secc/frozen_data/justice/bias_replication
+global tmp  /scratch/adibmk
+global jcode ~/ddl/paper-justice/code
 
 if mi("$out") | mi("$tmp") | mi("$datapath, eg.$mining") {
   display as error "Globals 'out', 'tmp', and 'datapath, eg.$mining' must be set for this to run."
@@ -27,9 +27,7 @@ if mi("$out") | mi("$tmp") | mi("$datapath, eg.$mining") {
 
 /* load Stata programs */
 qui do tools.do
-qui do masala-merge/masala_merge
-qui do stata-tex/stata-tex
-qui do ado/justice_programs.do
+qui do justice_programs.do
 
 /* add ado folder to adopath */
 adopath + ado
@@ -37,10 +35,6 @@ adopath + ado
 cap log close
 log using $out/logfilename.log, text replace
 
-
-/* define programs for justice analysis */
-do $jcode/ado/justice_programs.do
-do $jcode/ado/tools.do
 
 /************/
 /* ANALYSIS */
@@ -54,6 +48,12 @@ do $jcode/a/tables_balance.do
 
 /* Tables A3 & A4: Summary stats by defendant characteristics*/
 do $jcode/a/summary_stats.do
+
+/* Fig 1: Coefplots */
+shell python $jcode/a/py/make_gender_coefplot.py
+shell python $jcode/a/py/make_gender_coefplot2.py
+shell python $jcode/a/py/make_religion_coef.py
+shell python $jcode/a/py/make_religion_coef2.py
 
 /* Tables 5, A6, A8: RCT gender results */
 do $jcode/a/tables_rct_gender.do
@@ -82,6 +82,9 @@ do $jcode/a/table_ramadan.do
 
 /* maps for court distribution */
 do $jcode/a/court_count_district.do
+
+/* crimes against women analysis */
+do $jcode/a/women_analysis.do
 
 /* note that environment py_spatial should be activated */
 /* for script below to run */

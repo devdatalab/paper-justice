@@ -88,8 +88,8 @@ local ram_cm_n = `r(N)'
 local ram_cm: di _b["jd_nm_r"]
 
 /* write stored statistics in the paper stats csv */
-store_paper_stat `ram_cm_n' using $out/justice_paper_stats.csv, description("Ramandan analysis court-month: sample") group("ramadan")
-store_paper_stat `ram_cm' using $out/justice_paper_stats.csv, description("Ramandan analysis court-month: coef") group("ramadan")  
+store_validation_data `ram_cm_n' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Ramandan analysis court-month: sample") group("ramadan")
+store_validation_data `ram_cm' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Ramandan analysis court-month: coef") group("ramadan")  
 
 /* add up ramadan interaction and base bias to get bias during ramadan */
 lincom judge_def_nonmuslim + jd_nm_r
@@ -119,8 +119,8 @@ local ram_cy_n = `r(N)'
 local ram_cy: di _b["jd_nm_r"]
 
 /* write stored statistics in the paper stats csv */
-store_paper_stat `ram_cy_n' using $out/justice_paper_stats.csv, description("Ramandan analysis court-year: sample") group("ramadan")
-store_paper_stat `ram_cy' using $out/justice_paper_stats.csv, description("Ramandan analysis court-year: coef") group("ramadan")  
+store_validation_data `ram_cy_n' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Ramandan analysis court-year: sample") group("ramadan")
+store_validation_data `ram_cy' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Ramandan analysis court-year: coef") group("ramadan")  
 
 /* add up ramadan interaction and base bias to get bias during ramadan */
 lincom judge_def_nonmuslim + jd_nm_r
@@ -139,4 +139,6 @@ lincom judge_def_nonmuslim + jd_nm_r
 esttab m3 m4 m5 m6 using "$out/ramadan_acq.tex", replace se(3) label star(* 0.10 ** 0.05 *** 0.01) scalars("FE Fixed Effect" "judge Judge fixed effect" "sample Sample") drop(_cons j_nm_r d_nm_r) b(3) noomitted
 
 cap log close
+
+ close
 

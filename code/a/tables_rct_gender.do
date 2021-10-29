@@ -15,12 +15,12 @@ gen sample = e(sample) == 1
 /* store sample count in stats csv */
 count if sample == 1
 local sample: di %5.3f `r(N)'
-store_paper_stat `sample' using $out/justice_paper_stats.csv, description("Sample: Total obs in analysis dataset") group("descriptive")
+store_validation_data `sample' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Sample: Total obs in analysis dataset") group("descriptive") 
 
 /* store summary statistic in stats csv: avg acquittal rate */
 sum acq if sample == 1
 local acq_mean: di %5.3f `r(mean)'
-store_paper_stat `acq_mean' using $out/justice_paper_stats.csv, description("Mean acquittal rate in analysis sample") group("descriptive")
+store_validation_data `acq_mean' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Mean acquittal rate in analysis sample") group("descriptive")
 
 /* store summary statistic in stats csv: avg conviction rate */
 /* note that we have non-conviction as outcome variable */
@@ -29,7 +29,7 @@ gen conv = 1 - non_conv
 sum conv if sample == 1
 local conv_mean: di %5.3f `r(mean)'
 drop conv
-store_paper_stat `conv_mean' using $out/justice_paper_stats.csv, description("Mean conviction rate in analysis sample") group("descriptive")
+store_validation_data `conv_mean' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Mean conviction rate in analysis sample") group("descriptive")
 
 /* tag number of obs for which we have classified gender */
 count if !mi(def_female)
@@ -50,10 +50,10 @@ count if def_female == 0
 local share_def_mal: di %5.3f `r(N)'/`g_sample'
 
 /* store defendant demographic shares in paper stats csv */
-store_paper_stat `share_def_mus' using $out/justice_paper_stats.csv, description("Defendant share: Muslim") group("descriptive")
-store_paper_stat `share_def_nm' using $out/justice_paper_stats.csv, description("Defendant share: non-Muslim") group("descriptive")
-store_paper_stat `share_def_fem' using $out/justice_paper_stats.csv, description("Defendant share: female") group("descriptive")
-store_paper_stat `share_def_mal' using $out/justice_paper_stats.csv, description("Defendant share: male") group("descriptive")
+store_validation_data `share_def_mus' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Defendant share: Muslim") group("descriptive")
+store_validation_data `share_def_nm' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Defendant share: non-Muslim") group("descriptive")
+store_validation_data `share_def_fem' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Defendant share: female") group("descriptive")
+store_validation_data `share_def_mal' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Defendant share: male") group("descriptive")
 
 /**********************/
 /* Outcome: Acquitted */
@@ -72,15 +72,16 @@ reghdfe acquitted judge_male def_male judge_def_male def_nonmuslim judge_men_def
 store_gender, name("col3") outcome("acquitted") label("Acquittal rate")
 
 /* store analysis sample count in local */
+
 count if e(sample) == 1
 local gb_cm_n = `r(N)'
 
 /* store gender bias effect from column 3 in local */
 local gb_cm: di _b["judge_def_male"]
-store_paper_stat `gb_cm' using $out/justice_paper_stats.csv, description("Gender bias acquittal - court-month: coef") group("main bias results")  
+store_validation_data `gb_cm' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Gender bias acquittal - court-month: coef") group("main bias results")  
 
 /* store sample from column 3 in local */
-store_paper_stat `gb_cm_n' using $out/justice_paper_stats.csv, description("Gender bias acquittal - court-month: sample") group("main bias results")  
+store_validation_data `gb_cm_n' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Gender bias acquittal - court-month: sample") group("main bias results")  
 
 /* column 4 */
 reghdfe acquitted judge_male def_male judge_def_male , absorb(loc_year acts) cluster(judge)
@@ -100,10 +101,10 @@ local gb_cy_n = `r(N)'
 
 /* store bias effect from column 6 in local */
 local gb_cy: di _b["judge_def_male"]
-store_paper_stat `gb_cy' using $out/justice_paper_stats.csv, description("Gender bias acquittal - court-year: coef") group("main bias results")  
+store_validation_data `gb_cy' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Gender bias acquittal - court-year: coef") group("main bias results")  
 
 /* store sample from column 6 in local */
-store_paper_stat `gb_cy_n' using $out/justice_paper_stats.csv, description("Gender bias acquittal - court-year: sample") group("main bias results")  
+store_validation_data `gb_cy_n' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Gender bias acquittal - court-year: sample") group("main bias results")  
 
 /* write regression table */
 table_from_tpl, t($out/g_template.tex) r($tmp/gender_acquitted.csv) o($out/gender_acquitted.tex)
@@ -130,10 +131,10 @@ local gb_cm_n = `r(N)'
 
 /* store bias effect for stats csv*/
 local gb_cm: di _b["judge_def_male"]
-store_paper_stat `gb_cm' using $out/justice_paper_stats.csv, description("Gender bias decision - court-month: coef") group("main bias results")  
+store_validation_data `gb_cm' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Gender bias decision - court-month: coef") group("main bias results")  
 
 /* store sample for stats csv */
-store_paper_stat `gb_cm_n' using $out/justice_paper_stats.csv, description("Gender bias decision - court-month: sample") group("main bias results")  
+store_validation_data `gb_cm_n' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Gender bias decision - court-month: sample") group("main bias results")  
 
 /* column 4 */
 reghdfe decision judge_male def_male judge_def_male , absorb(loc_year acts) cluster(judge)
@@ -155,10 +156,10 @@ local gb_cy_n = `r(N)'
 local gb_cy: di _b["judge_def_male"]
 
 /* write bias effect from column 6 in stats csv */
-store_paper_stat `gb_cy' using $out/justice_paper_stats.csv, description("Gender bias decision - court-year: coef") group("main bias results")  
+store_validation_data `gb_cy' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Gender bias decision - court-year: coef") group("main bias results")  
 
 /* write sample from column 6 in stats csv */
-store_paper_stat `gb_cy_n' using $out/justice_paper_stats.csv, description("Gender bias decision - court-year: sample") group("main bias results")  
+store_validation_data `gb_cy_n' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Gender bias decision - court-year: sample") group("main bias results")  
 
 /* write regression table */
 table_from_tpl, t($out/g_template.tex) r($tmp/gender_decision.csv) o($out/gender_decision.tex)
@@ -262,6 +263,11 @@ reghdfe acquitted judge_male def_male judge_def_male def_nonmuslim judge_men_def
 store_gender, name("col6") outcome("acquitted") label("Acquittal rate")
 
 table_from_tpl, t($out/g_template.tex) r($tmp/gender_acquitted.csv) o($out/gender_acquitted_high_match.tex)
+
+
+
+
+quitted_high_match.tex)
 
 
 

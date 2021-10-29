@@ -81,8 +81,8 @@ local gmis_n = `r(N)'
 local gmis: di _b["jdmale_mis"]
 
 /* store sample & main bias effect from reg 1 in paper stats csv */
-store_paper_stat `gmis_n' using $out/justice_paper_stats.csv, description("Victim mismatch gender bias: sample") group("victim mismatch")
-store_paper_stat `gmis' using $out/justice_paper_stats.csv, description("Victim mismatch gender bias: coef") group("victim mismatch")  
+store_validation_data `gmis_n' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Victim mismatch gender bias: sample") group("victim mismatch")
+store_validation_data `gmis' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Victim mismatch gender bias: coef") group("victim mismatch")  
 
 /* calculate effect on group most likely to see bias */
 lincom bias + jdmale_mis
@@ -103,8 +103,8 @@ local rmis_n = `r(N)'
 local rmis: di _b["jdmus_mis"]
 
 /* store sample & main bias effect from reg 2 in paper stats csv */
-store_paper_stat `rmis_n' using $out/justice_paper_stats.csv, description("Victim mismatch religion bias: sample") group("victim mismatch")
-store_paper_stat `rmis' using $out/justice_paper_stats.csv, description("Victim mismatch religion bias: coef") group("victim mismatch")  
+store_validation_data `rmis_n' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Victim mismatch religion bias: sample") group("victim mismatch")
+store_validation_data `rmis' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Victim mismatch religion bias: coef") group("victim mismatch")  
 
 /* calculate effect on group most likely to see bias */
 lincom bias + jdmus_mis
@@ -125,18 +125,19 @@ local wc_n = `r(N)'
 local wc: di _b["jdmale_wc"]
 
 /* store sample & main bias effect from reg 3 in paper stats csv */
-store_paper_stat `wc_n' using $out/justice_paper_stats.csv, description("Victim mismatch crimes agnst women: sample") group("victim mismatch")
-store_paper_stat `wc' using $out/justice_paper_stats.csv, description("Victim mismatch crimes agnst women: coef") group("victim mismatch")  
+store_validation_data `wc_n' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Victim mismatch crimes agnst women: sample") group("victim mismatch")
+store_validation_data `wc' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Victim mismatch crimes agnst women: coef") group("victim mismatch")  
 
 /* calculate effect on group most likely to see bias */
 lincom bias + jdmale_wc
 
 esttab m1 m2 m3 using $out/victim_inter.tex, replace se(3) label star(* 0.10 ** 0.05 *** 0.01) scalars("FE Fixed Effect" "judge Judge Fixed Effect" "bias Bias" "sample Sample") keep(bias jdmale_mis jdmus_mis jdmale_wc) b(3)  
 
-//estout_default using $out/victim_inter, order(bias jdmale_mis jdmus_mis jdmale_wc)
-//cat $out/victim_inter.tex
-
 cap log close
+
+
+
+og close
 
 
 

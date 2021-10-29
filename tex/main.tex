@@ -176,7 +176,7 @@ In about 40\% of cases, the judge presiding over the initial case filing does no
 \begin{center}
   \caption{Coding of outcome variables}
   \label{tab:outcome_variable_coding}
-  \input{./exhibits/outcome_variable_coding.tex}
+  \input{exhibits/outcome_variable_coding.tex}
  
 \begin{minipage}{0.95\textwidth}
     {\vspace{1mm}\footnotesize \emph{Notes:} The outcome variables were coded based on the trial outcome recorded in eCourts. Columns 2 and 3 are defined so that a value of 1 represents a positive outcome.  \vspace{1mm}  \par}
@@ -203,12 +203,12 @@ Panel C shows that Muslims are over-represented by 3\% in the universe of crimin
         crime category and defendant identity}
       \label{fig:summary}
             \begin{tabular}{@{}ll@{}}
-        \includegraphics[width=.4\textwidth]{.exhibits/g_coef1} &
-        \includegraphics[width=.37\textwidth]{.exhibits/g_coef2} \\
+        \includegraphics[width=.4\textwidth]{exhibits/g_coef1} &
+        \includegraphics[width=.37\textwidth]{exhibits/g_coef2} \\
       \end{tabular}
       \begin{tabular}{@{}ll@{}}
-        \includegraphics[width=.4\textwidth]{.exhibits/r_coef1} &
-        \includegraphics[width=.37\textwidth]{.exhibits/r_coef2} \\
+        \includegraphics[width=.4\textwidth]{exhibits/r_coef1} &
+        \includegraphics[width=.37\textwidth]{exhibits/r_coef2} \\
       \end{tabular}
       
   \begin{minipage}{1.0\textwidth}
@@ -227,7 +227,7 @@ Panel C shows that Muslims are over-represented by 3\% in the universe of crimin
     \begin{center}
       \caption{Summary statistics, by judge identity}
       \label{tab:judge_sam}
-     \input{./exhibits/judge_summary}
+     \input{exhibits/judge_summary}
     \begin{minipage}{0.95\textwidth}
     {\footnotesize \vspace{1mm}\emph{Notes:} Coefficients represent means for each variable in the sample, collapsed to the judge level. Standard errors have been reported in parentheses. \par} \vspace{1mm} 
     \hrule
@@ -299,7 +299,7 @@ with variables defined as above. The coefficients of interest are $\beta_{1}$ an
     \begin{center}
       \caption{Balance test for assignment of judge identity}
       \label{tab:balance}
-     \input{./exhibits/randomization_combined}
+     \input{exhibits/random_acq}
      \begin{minipage}{0.95\textwidth}
    {\footnotesize \emph{Notes:} This table reports results from a formal test of random assignment of judges to cases in the study sample. For specification details, see Equations~\ref{eq:random_female} and ~\ref{eq:random_muslim}. Columns 1--2 report the likelihood of being assigned to a female judge relative to a male judge using court-month, and court-year fixed effects. Columns 3--4 report the likelihood of being assigned to a Muslim judge relative to a non-Muslim judge using court-month, and court-year fixed effects. Charge section fixed effects have been used across all columns reported. Heteroskedasticity robust standard errors are reported below point estimates. } \\
    \end{minipage}
@@ -326,9 +326,9 @@ Table~\ref{tab:random_female} Panel B shows the effect of filing judge gender on
     \begin{center}
         \caption{Impact of assignment to a male judge on defendant outcomes}
         \label{tab:random_female}
-        \input{./exhibits/gender_acquitted}
+        \input{exhibits/gender_acquitted}
         \vspace{2mm}
-        \input{./exhibits/gender_decision}
+        \input{exhibits/gender_decision}
     \end{center}
     \begin{minipage}{1.3\textwidth}
         \footnotesize 
@@ -343,9 +343,9 @@ Table~\ref{tab:random_female} Panel B shows the effect of filing judge gender on
     \begin{center}
         \caption{Impact of assignment to a non-Muslim judge on defendant outcomes}
         \label{tab:random_muslim}
-        \input{./exhibits/religion_acquitted}
+        \input{exhibits/religion_acquitted}
         \vspace{2mm}
-        \input{./exhibits/religion_decision}
+        \input{exhibits/religion_decision}
     \end{center}
     \begin{minipage}{1.6\textwidth}
         \footnotesize 
@@ -382,7 +382,7 @@ Table \ref{tab:last_name} shows the results. Across specifications, we find a 1.
   \begin{center}
     \caption{Impact of assignment to a judge with the same last name on defendant outcomes}
     \label{tab:last_name}
-    \input{./exhibits/same_last_name}
+    \input{exhibits/last_names}
   \begin{minipage}{0.90\textwidth}
     \footnotesize \emph{Notes:} This table reports results from a test of the impact of random assignment to a judge with the same last name as the defendant on likelihood of acquittal, see Equation~\ref{eq:lastname}. Charge section and last name fixed effects have been used across all columns reported.\\ \hrule 
   \end{minipage}
@@ -403,7 +403,7 @@ Columns 1 and 2 of Table~\ref{tab:victim_inter} show the results for gender and 
     \begin{center}
         \caption{Differential judge bias effect based on victim of crime}
       \label{tab:victim_inter}
-        \input{./exhibits/victim_inter.tex}
+        \input{exhibits/victim_inter.tex}
   \begin{minipage}{\textwidth}
    \footnotesize \emph{Notes:} This table reports results from a test of in-group bias in cases where gender or religious identity are salient, i.e. when the defendant and victim belong to opposing identities (Columns 1 and 2), or when the charge is classified as a crime against women (Column 3). Charge section fixed effects have been used across all reported columns. \\ \hrule
    \end{minipage}
@@ -420,7 +420,7 @@ Appendix Table~\ref{tab:crime_women} shows estimates from the standard bias spec
       \begin{center}
         \caption{Impact of Ramadan on own religion bias in acquittal rates}
         \label{tab:ramadan_acq}
-        \input{./exhibits/ramadan_acq}
+        \input{exhibits/ramadan_acq}
       \begin{minipage}{1\textwidth}
    \footnotesize \emph{Notes:} This table reports results from a test of in-group religious bias conditional on trial during the months of Ramadan (following ~\cite{Mehmood2020}). Charge section fixed effects have been included across all reported columns. \\ \hrule
    \end{minipage}
@@ -447,10 +447,10 @@ Our null estimates of in-group bias contrast with findings in the previous liter
     \caption{Comparison with judicial bias estimates in other contexts}
     \label{fig:literature}
     A. Coefficient Plot \\ 
-    \includegraphics[width=\linewidth]{.exhibits/lit_coef.png} \\ 
+    \includegraphics[width=\linewidth]{exhibits/lit_coef.png} \\ 
     \vspace{1cm}
     B. Standardized Errors vs. Effect Sizes \\ 
-    \includegraphics[scale=0.8]{.exhibits/pub_bias.pdf} \\
+    \includegraphics[scale=0.8]{exhibits/pub_bias.pdf} \\
   \end{center}
    \begin{minipage}{1.0\textwidth}
    \footnotesize \emph{Notes:} This figure shows point estimates of in-group bias from other studies in the relevant literature. From top to bottom, the coefficients of in-group bias (Panel A) correspond to \cite{ShayoZussman2011QJE}, \cite{AnwarBayerHjalmarsson2012TQJoE}, 
@@ -490,7 +490,7 @@ These points also provide some guidance and motivation for social scientists. Mo
 \begin{figure}[htp!]
  \centering
  \caption{India eCourts Case Record Sample}
- \includegraphics[width=0.7\textwidth]{.exhibits/ecourts_case_view.png}
+ \includegraphics[width=0.7\textwidth]{exhibits/ecourts_case_view.png}
  \label{fig:ecourts_case_view}
  \begin{minipage}{1.0\textwidth}
     {\scriptsize \emph{Notes:} The figure displays an anonymized version of a sample court record from \url{https://ecourts.gov.in/} for the District and Sessions Court of Vidisha. The `Petitioner and Advocate' and `Respondent and Advocate' sections contain the litigant names that we use for assigning gender and religion. The `Acts' section contains the data that allows us to discriminate between civil and criminal cases. We use the `Under Section(s)' column to infer the corresponding crime categories.\par}
@@ -502,7 +502,7 @@ These points also provide some guidance and motivation for social scientists. Mo
 \begin{figure}[htp!]
  \centering
  \caption{Sample accounting}
- \includegraphics[width=0.7\textwidth]{.exhibits/nomnoml.png}
+ \includegraphics[width=0.7\textwidth]{exhibits/nomnoml.png}
  \label{fig:nomnoml}
  \begin{minipage}{1.0\textwidth}
     {\scriptsize \emph{Notes:} The figure displays the process through which we arrive at the analysis dataset from the parent dataset of 77 million legal case records. After restricting the sample to criminal cases, matching these criminal cases with our judge dataset, and dropping bail observations, 8.5 million case records remain. For 6 million (6.6 million) records we can then assign the gender (religion) of the judge and defendant using our machine classifier. Further reductions of the sample size, for instance in results Tables \ref{tab:random_female} and \ref{tab:random_muslim}, are due to the inclusion of fixed effects. When during the same court-month/court-year no female \textbf{and} male (or Muslim \textbf{and} non-Muslim) judges were present, observations are dropped.\par}
@@ -512,7 +512,7 @@ These points also provide some guidance and motivation for social scientists. Mo
 \begin{figure}[htp!]
  \centering
  \caption{India eCourts Sample Judge Information inside the Search Engine}
- \includegraphics[width=0.7\textwidth]{.exhibits/ecourts_judge_scraping.png}
+ \includegraphics[width=0.7\textwidth]{exhibits/ecourts_judge_scraping.png}
  \label{fig:ecourts_judge_scraping}
  \begin{minipage}{1.0\textwidth}
     {\scriptsize \emph{Notes:} Sample view of the eCourts court order search engine. We scraped the judge information implicitly given in the `Court Number' drop-down list of the search mask on -- in this case -- \url{https://services.ecourts.gov.in/ecourtindia_v4_bilingual/cases/s_order.php?state=D&state_cd=1&dist_cd=19} to obtain judge names and tenures.\par}
@@ -523,7 +523,7 @@ These points also provide some guidance and motivation for social scientists. Mo
 \begin{figure}
     \centering
     \caption{Distribution of courts across districts in the analysis sample}
-    \includegraphics[width=.7\textwidth]{.exhibits/court_map_rct} 
+    \includegraphics[width=.7\textwidth]{exhibits/court_map_rct} 
     \label{fig:court_maps}
      \begin{minipage}{1.0\textwidth}
     {\scriptsize \emph{Notes:} This figure shows the geographical distribution of the trial courts in our sample. Black lines delineate states, and within those the unit of observation for this graphical illustration are districts. Districts marked in white are not included in our analysis.\par}
@@ -536,7 +536,7 @@ These points also provide some guidance and motivation for social scientists. Mo
   \begin{center}
   \caption{Summary of Name Classifier Training Datasets}
   \label{tab:training}
-  \input{./exhibits/training_dist.tex}
+  \input{exhibits/training_dist.tex}
   \end{center}
    \begin{minipage}{1.0\textwidth}
     {\scriptsize \emph{Notes:} Panels A \& B of this table show the distribution of identities in the underlying training datasets of the gender and religion LSTM name classification models respectively.\par}
@@ -548,7 +548,7 @@ These points also provide some guidance and motivation for social scientists. Mo
   \caption{Outcome variables mapped to dispositions}
   \label{tab:dispositions}
           \resizebox{0.6\linewidth}{!}{
-  \input{./exhibits/dispositions}}
+  \input{exhibits/dispositions}}
 \end{center}
  \begin{minipage}{1.0\textwidth}
     {\scriptsize \emph{Notes:} This table illustrates the classification of the raw dispositions into our three outcome variables. In the table, no entry corresponds to the default value 0, and X denotes that the corresponding outcome value is set to 1. If a case has a disposition at all, the indicator variable \textit{Decision} equals 1, and 0 otherwise. Conditional on having a disposition, if the disposition is clearly acquitted, the outcome variable \textit{Acquitted} takes the value 1, and 0 otherwise. The outcome variable for \textit{Conviction} has been coded analogously.\par}
@@ -565,7 +565,7 @@ These points also provide some guidance and motivation for social scientists. Mo
         \caption{Summary of charges, by gender of defendant}
         \label{tab:summary_gender}
         \resizebox{1\linewidth}{!}{
-        \input{./exhibits/gbal.tex}}
+        \input{exhibits/gbal.tex}}
     \end{center}
      \begin{minipage}{1.4\textwidth}
     {\scriptsize \emph{Notes:} Column 1 of this table reports the share of female defendants for each crime category. Column 2 reports the ratio of the female share for each crime to the female population share in India. Column 3 reports the acquittal rate for females accused of each crime category. Column 4 reports the analogous acquittal rates for males. Column 5 reports the difference in female and male acquittal rates for each crime category. Column 6 reports the total number of case records in each crime category. The total number of cases in this table is larger than the 6 million cases mentioned in \ref{fig:ecourts_case_view} as we also include cases records in the statistics where only the defendant gender is defined, even if the judge gender is unknown.\par}
@@ -577,7 +577,7 @@ These points also provide some guidance and motivation for social scientists. Mo
         \caption{Summary of charges, by religion of defendant}
         \label{tab:summary_religion}
         \resizebox{1\linewidth}{!}{
-        \input{./exhibits/rbal.tex}}
+        \input{exhibits/rbal.tex}}
       \end{center}
         \begin{minipage}{1.4\textwidth}
     {\scriptsize \emph{Notes:} Column 1 of this table reports the share of Muslim defendants for each crime category. Column 2 reports the ratio of the Muslim share for each crime to the Muslim population share in India. Column 3 reports the acquittal rate for Muslims accused of each crime category. Column 4 reports the analogous acquittal rates for non-Muslims. Column 5 reports the difference in Muslim and non-Muslim acquittal rates for each crime category. Column 6 reports the total number of case records in each crime category. The total number of cases in this table is larger than the 6.6 million cases mentioned in \ref{fig:ecourts_case_view} as we also include cases records in the statistics where only the defendant religion is defined, even if the judge religion is unknown.\par}
@@ -592,7 +592,7 @@ These points also provide some guidance and motivation for social scientists. Mo
 % \begin{center}
 %   \caption{Explanation of coefficients in the primary specification}
 %   \label{tab:outcome_coefficient_matrix}
-%   \input{tables/outcome_coefficient_matrix.tex}
+%   \input{exhibits/outcome_coefficient_matrix.tex}
 % \end{center}
 %   \begin{minipage}{1\textwidth}
 %     {\scriptsize \emph{Notes:} This table explains each coefficient that appears in Equation \ref{eq:random_female}. Specifically, $\beta_{1} + \beta_{2} + \beta_{3} $ represents the effect of random assignment to a male judge for a male defendant on his acquittal likelihood. $\beta_{1}$ represents the effect of random assignment to a male judge for a female defendant on her acquittal likelihood. Similarly, $\beta_{2}$ represents the effect of random assignment to a male judge for a female defendant. If there were own gender bias, we would expect the difference (i.e. $\beta_{3}$) between relative treatment of male judge of male defendants (i.e. $\beta_{2} + \beta_{3}$) and relative treatment of female judge of male defendants (i.e. $\beta_{2}$) to be positive and statistically significant. In this set-up, $\beta_{3}$ represents the magnitude of own-gender bias. The coefficients have analogous meanings in the religion bias analysis specification of Equation \ref{eq:random_muslim}. \par}
@@ -603,7 +603,7 @@ These points also provide some guidance and motivation for social scientists. Mo
 %% \begin{figure}
 %%     \centering
 %%     \caption{Distribution of court sizes in the analysis samples}
-%%     \includegraphics[width=0.9\textwidth]{figures/court_size.png}
+%%     \includegraphics[width=0.9\textwidth]{exhibits/court_size.png}
 %%     \label{fig:court_size}
 %%      \begin{minipage}{1.0\textwidth}
 %%     {\scriptsize \emph{Notes:} This figure shows the distribution of court sizes in the analysis sample. The smallest courts consist of one judge only, whereas the largest courts comprise up to 14 judges.\par}
@@ -617,7 +617,7 @@ These points also provide some guidance and motivation for social scientists. Mo
     \begin{center}
         \caption{Impact of assignment to a male judge on non-conviction}
         \label{tab:app_random_female}
-        \input{./exhibits/gender_non_convicted}
+        \input{exhibits/gender_non_convicted}
     \end{center}
     \begin{minipage}{1.6\textwidth}
         \footnotesize 
@@ -633,7 +633,7 @@ These points also provide some guidance and motivation for social scientists. Mo
   \begin{center}
      \caption{Impact of assignment to a male judge on acquittal rates, dropping ambiguous outcomes}
       \label{tab:amb_random_female}
-     \input{./exhibits/gender_acquitted_amb}
+     \input{exhibits/gender_acquitted_amb}
     \end{center}
     \begin{minipage}{1.6\textwidth}
         \footnotesize 
@@ -648,7 +648,7 @@ These points also provide some guidance and motivation for social scientists. Mo
   \begin{center}
      \caption{Impact of assignment to a male judge on whether the disposition is ambiguous}
       \label{tab:robust_amb_female}
-     \input{./exhibits/gender_amb}
+     \input{exhibits/gender_amb}
     \end{center}
     \begin{minipage}{1.6\textwidth}
         \footnotesize 
@@ -663,7 +663,7 @@ These points also provide some guidance and motivation for social scientists. Mo
   \begin{center}
      \caption{Impact of assignment to a non-Muslim judge on non-conviction}
       \label{tab:app_random_muslim}
-     \input{./exhibits/religion_non_convicted}
+     \input{exhibits/religion_non_convicted}
     \end{center}
     \begin{minipage}{1.6\textwidth}
         \footnotesize 
@@ -679,7 +679,7 @@ These points also provide some guidance and motivation for social scientists. Mo
   \begin{center}
      \caption{Impact of assignment to a non-Muslim judge on acquittal rates,  dropping ambiguous outcomes}
       \label{tab:amb_random_muslim}
-     \input{./exhibits/religion_acquitted_amb}
+     \input{exhibits/religion_acquitted_amb}
     \end{center}
     \begin{minipage}{1.6\textwidth}
         \footnotesize 
@@ -694,7 +694,7 @@ These points also provide some guidance and motivation for social scientists. Mo
   \begin{center}
      \caption{Impact of assignment to a non-Muslim judge on whether the disposition is ambiguous}
       \label{tab:robust_amb_Muslim}
-     \input{./exhibits/religion_amb}
+     \input{exhibits/religion_amb}
     \end{center}
     \begin{minipage}{1.6\textwidth}
         \footnotesize 
@@ -709,7 +709,7 @@ These points also provide some guidance and motivation for social scientists. Mo
       \begin{center}
         \caption{Impact of assignment to a male judge when the offence was a crime against women}
         \label{tab:crime_women}
-        \input{./exhibits/gender_acquitted_wom}
+        \input{exhibits/gender_acquitted_wom}
       \end{center}
     \begin{minipage}{1.6\textwidth}
         \footnotesize 
@@ -729,8 +729,8 @@ These points also provide some guidance and motivation for social scientists. Mo
 %%       \caption{Heterogeneity analysis of in-group bias, by crime category}
 %%       \label{fig:crime_type}
 %%             \begin{tabular}{@{}ll@{}}
-%%         \includegraphics[width=.5\textwidth]{figures/gender_crime_coef.png} &
-%%         \includegraphics[width=.5\textwidth]{figures/religion_crime_coef.png} \\
+%%         \includegraphics[width=.5\textwidth]{exhibits/gender_crime_coef.png} &
+%%         \includegraphics[width=.5\textwidth]{exhibits/religion_crime_coef.png} \\
 %%       \end{tabular}
 %%       
 %%   \begin{minipage}{1.0\textwidth}

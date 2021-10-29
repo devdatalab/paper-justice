@@ -22,7 +22,7 @@ To regenerate the tables and figures from the paper, take the following steps:
 
 * Please note we use globals for pathnames, which will cause errors if filepaths have spaces in them. Please store code and data in paths that can be access without spaces in filenames.
 
-* This code was tested using Stata 15.0. Run time to generate all results on our server was about __ minutes.
+* This code was tested using Stata 15.0. Run time to generate all results on our server was about 8 hours.
 
 ## Data download
 

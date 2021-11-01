@@ -15,10 +15,10 @@ $repdata: path to initial data inputs
 $tmp: intermediate data files will be put here
 $jcode: path to folder of build and analysis .do and .py files*/
 
-global out ~/ddl/paper-justice/tex/exhibits
-global jdata ~/secc/frozen_data/justice/bias_replication
-global tmp  /scratch/adibmk
-global jcode ~/ddl/paper-justice/code
+global out 
+global jdata
+global tmp  
+global jcode 
 
 if mi("$out") | mi("$tmp") | mi("$datapath, eg.$mining") {
   display as error "Globals 'out', 'tmp', and 'datapath, eg.$mining' must be set for this to run."

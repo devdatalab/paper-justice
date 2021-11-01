@@ -13,7 +13,7 @@ To regenerate the tables and figures from the paper, take the following steps:
 
 1. `$out` is the target folder for all outputs, such as tables and graphs.
 2. `$tmp` is the folder for the data files and temporary data files that will be created during the rebuild.
-3. `$repdata` is the folder where you unzipped and saved the replication data package.
+3. `$jdata` is the folder where you unzipped and saved the replication data package.
 4. `$jcode` is the code folder of the clone of the replication repo
 
 * Run the do file `make_justice_repl.do`. This will run through all the other do files to regenerate all of the results.

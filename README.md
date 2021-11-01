@@ -9,7 +9,7 @@ To regenerate the tables and figures from the paper, take the following steps:
 
 * Download and unzip the replication data package from [here](https://www.dropbox.com/s/uip470ohrezlae1/bias_replication.tar.gz?dl=0)
 
-* Open the do file `make_justice_repl.do`, and set the globals `out`, `repdata`, `tmp`, and `jcode`.
+* Open the do file `make_justice_results.do`, and set the globals `out`, `repdata`, `tmp`, and `jcode`.
 
 1. `$out` is the target folder for all outputs, such as tables and graphs.
 2. `$tmp` is the folder for the data files and temporary data files that will be created during the rebuild.

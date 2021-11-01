@@ -38,10 +38,10 @@ local judge_mus_share: di %5.3f `r(mean)'
 local judge_nm_share: di %5.3f 1 - `r(mean)'
 
 /* write out saved statistics in a csv file */
-store_validation_data `judge_fem_share' using $out/justice_paper_stats.csv, timestamp() test_type("Judge gender share: female") group("descriptive")
-store_validation_data `judge_mal_share' using $out/justice_paper_stats.csv, timestamp() test_type("Judge gender share: male") group("descriptive")
-store_validation_data `judge_mus_share' using $out/justice_paper_stats.csv, timestamp() test_type("Judge religion share: Muslim") group("descriptive")
-store_validation_data `judge_nm_share' using $out/justice_paper_stats.csv, timestamp() test_type("Judge religion sahre: non-Muslim") group("descriptive")
+store_validation_data `judge_fem_share' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Judge gender share: female") group("descriptive")
+store_validation_data `judge_mal_share' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Judge gender share: male") group("descriptive")
+store_validation_data `judge_mus_share' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Judge religion share: Muslim") group("descriptive")
+store_validation_data `judge_nm_share' using $out/justice_paper_stats.csv, timestamp("$validation_logtime") test_type("Judge religion sahre: non-Muslim") group("descriptive")
 
 /* generate an all variable */
 gen all = 1

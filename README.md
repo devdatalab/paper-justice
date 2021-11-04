@@ -26,4 +26,4 @@ To regenerate the tables and figures from the paper, take the following steps:
 
 ## Data download
 
-To download the data needed to replicate this paper in zipped tarball format, please [click here](https://www.dropbox.com/s/uip470ohrezlae1/bias_replication.tar.gz?dl=0).
+To download the data needed to replicate this paper in zipped tarball format, please [click here](broken).

@@ -6,7 +6,7 @@ cd $jcode/classifier
 /**********/
 
 /* classify the names */
-shell python -c "from classify_names import classify_gender; classify_gender('classify', model_fp='delhi_names_gender.hdf5', data_fn='$jdata/sample_names.dta', output_fp='$tmp/lstm_results/names_female_class_sample.csv')"
+shell python -c "from classify_names import classify_gender; classify_gender('classify', model_fp='$jdata/delhi_names_gender.hdf5', data_fn='$jdata/sample_names.dta', output_fp='$tmp/lstm_results/names_female_class_sample.csv')"
 
 /* import data */
 import delimited using $tmp/lstm_results/names_female_class_sample.csv, clear

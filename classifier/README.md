@@ -1,4 +1,4 @@
-# IDENTITY IDENTIFICATION USING A NEURAL NETWORK ON RAW NAME STRINGS
+## Classifying names by Gender & Religion Using a Neural Network
 ---------------------------------------------------------------------
 
 To classify litigant and judge names by gender and religion in our paper on  [In-group bias in the Indian judiciary](http://paulnovosad.com/pdf/india-judicial-bias.pdf), 

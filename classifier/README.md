@@ -1,3 +1,6 @@
+# IDENTITY IDENTIFICATION USING A NEURAL NETWORK ON RAW NAME STRINGS
+---------------------------------------------------------------------
+
 To classify litigant and judge names by gender and religion in our paper on  [In-group bias in the Indian judiciary](http://paulnovosad.com/pdf/india-judicial-bias.pdf), 
 we developed and applied a machine classifier that reads name strings and assigns probabilities of names belonging to female/male or Muslim/non-Muslim individuals.
 Specifically, we trained a Character-level Bidirectional Long Short-Term Memory (LSTM) network model. The LSTM is a specific type of Recurrent Neural Network which 

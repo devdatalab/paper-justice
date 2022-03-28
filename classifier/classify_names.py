@@ -1,7 +1,7 @@
 import argparse
 import os
 import pandas as pd
-from ddlpy.text.lstm_classifier import LSTMClassifier
+from lstm_classifier import LSTMClassifier
 
 
 def classify_gender(mode, model_fp="", data_fn="", output_fp=""):

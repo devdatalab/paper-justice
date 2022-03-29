@@ -95,7 +95,7 @@ class LSTMClassifier(object):
             data["__string"] = data[stringvar].str.lower()
 
         # count the character length of the names
-        data["__length"] = data["__string"].apply(lambda x: len(x))
+        data["__length"] = data["__string"].apply(lambda x: len(str(x)))
 
         # drop any names that are longer than 40 characters (the max length in the training set)
         data = data.drop(data.loc[data["__length"] >= self.maxlen].index)

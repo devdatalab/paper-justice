@@ -3,9 +3,36 @@ import os
 import pandas as pd
 from lstm_classifier import LSTMClassifier
 
+# define input functions in a dictionary
+input_fns = {
+    "excel": pd.read_excel,
+    "csv": pd.read_csv,
+    "dta": pd.read_stata
+}
+
+def check_data_type(fp):
+    
+    # read in excel files
+    if (".xlsx" in fp) | (".xls" in fp):
+        return "excel"
+
+    # read in csv files
+    elif (".csv" in fp):
+        return "csv"
+
+    # read in stata files
+    elif (".dta" in fp):
+        return "dta"
+
+    else:
+        raise ValueError("Input data must be excel, csv, or dta format")
+
 
 def classify_gender(mode, model_fp="", data_fn="", output_fp=""):
     """
+    Wrapper function to call the LSTMClassifier object to either train
+    a model or use an existing model to classify data.
+
     mode = train, classify
     model_fp = Full path to where model is stored (specify in classify mode)
     data_fn = File name, including full path, for training data (in train mode)
@@ -25,8 +52,12 @@ def classify_gender(mode, model_fp="", data_fn="", output_fp=""):
     
         # initiate name classifier object
         model = LSTMClassifier()
-        
-        df = pd.read_stata(data_fn)
+
+        # find the input function based on the file type
+        read_in = input_fns[check_data_type(data_fn)]
+
+        # read in the data
+        df = read_in(data_fn)
 
         # make sure to only keep names with M or F as values for gender
         df = df[df['gender'].isin(["M", "F"])]
@@ -75,8 +106,14 @@ def classify_gender(mode, model_fp="", data_fn="", output_fp=""):
         dfs = {}
         num = 0
 
+        # find the input function based on the file type
+        read_in = input_fns[check_data_type(data_fn)]
+
         # read in the data in chunks as these are large files 
-        for df_chunk in pd.read_stata(data_fn, chunksize=1000000):
+        for df_chunk in read_in(data_fn, chunksize=1000000):
+
+            # replace and missing names with empty strings
+            df_chunk["name"] = df_chunk["name"].fillna("")
 
             # 1) CLEAN
             df_chunk = model.clean_string(df_chunk, "name")
@@ -103,13 +140,12 @@ def classify_gender(mode, model_fp="", data_fn="", output_fp=""):
 
         # write the dataframe out to file
         if not output_fp:
-            output_fp = "names_female_class_sample.csv"
+            output_fn = "names_female_class_sample.csv"
+        else:
+            output_fn = os.path.join(output_fp, "names_female_class_sample.csv")
             
-        # make sure the file is written out
-        try:
-            df.to_csv(output_fp)
-        except:
-            df.to_csv("names_female_class_sample.csv")
+        # write out the results
+        df.to_csv(output_fn, index=False)
         
         print("Classification complete.")
 

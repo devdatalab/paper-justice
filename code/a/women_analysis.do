@@ -51,7 +51,7 @@ prog def crime_type_analysis
   reghdfe acquitted judge_nonmuslim def_nonmuslim judge_def_nonmuslim def_male judge_nm_def_men , absorb(loc_year acts judge) cluster(judge)
   store_religion, name("col6") outcome("acquitted") label("Acquittal rate")
 
-  table_from_tpl, t($out/r_template.tex) r($tmp/religion_acquitted.csv) o($out/religion_acquitted_`label'.tex)
+  table_from_tpl, t($jcode/a/tpl/r_tpl.tex) r($tmp/religion_acquitted.csv) o($out/religion_acquitted_`label'.tex)
 
   /* save csv */
   insheet using $tmp/religion_acquitted.csv, clear

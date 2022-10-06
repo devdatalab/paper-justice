@@ -116,5 +116,4 @@ foreach o in $ovars judge_female judge_muslim {
 
 
 /* write out table */
-table_from_tpl, t($out/judge_balance_temp.tex) r($tmp/judge_summary.csv) o($out/judge_summary.tex)     
-x)     
+table_from_tpl, t($jcode/a/tpl/judge_balance_tpl.tex) r($tmp/judge_summary.csv) o($out/judge_summary.tex)

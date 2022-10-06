@@ -90,4 +90,14 @@ do $jcode/a/women_analysis.do
 /* for script below to run */
 shell python $jcode/a/py/court_count_maps.py
 
+/***********************/
+/* New Appendix Tables */
+/***********************/
+
+/* results adjusting for ambiguity rate */
+do $jcode/a/explore_ambiguity.do
+
+/* explore judge discretion (judge FE R2) */
+do $jcode/a/explore_discretion.do
+
 log close

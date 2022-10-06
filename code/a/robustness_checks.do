@@ -37,7 +37,7 @@ store_gender, name("col5") outcome("amb") label("Ambiguous outcome")
 reghdfe amb judge_male def_male judge_def_male def_nonmuslim judge_men_def_nm , absorb(loc_year acts judge) cluster(judge)
 store_gender, name("col6") outcome("amb") label("Ambiguous outcome")
 
-table_from_tpl, t($out/g_template.tex) r($tmp/gender_amb.csv) o($out/gender_amb.tex)
+table_from_tpl, t($jcode/tex/g_tpl.tex) r($tmp/gender_amb.csv) o($out/gender_amb.tex)
 
 /* same judge */
 /* column 1 */
@@ -64,7 +64,7 @@ store_gender, name("col5") outcome("same_judge") label("Filing judge reached dec
 reghdfe same_judge judge_male def_male judge_def_male def_nonmuslim judge_men_def_nm , absorb(loc_year acts judge) cluster(judge)
 store_gender, name("col6") outcome("same_judge") label("Filing judge reached decision")
 
-table_from_tpl, t($out/g_template.tex) r($tmp/gender_same_judge.csv) o($out/gender_same_judge.tex)
+table_from_tpl, t($jcode/tex/g_tpl.tex) r($tmp/gender_same_judge.csv) o($out/gender_same_judge.tex)
 
 /************/
 /* Religion */
@@ -94,7 +94,7 @@ store_religion, name("col5") outcome("amb") label("Ambiguous outcome")
 reghdfe amb judge_nonmuslim def_nonmuslim judge_def_nonmuslim def_male judge_nm_def_men , absorb(loc_year acts judge) cluster(judge)
 store_religion, name("col6") outcome("amb") label("Ambiguous outcome")
 
-table_from_tpl, t($out/r_template.tex) r($tmp/religion_amb.csv) o($out/religion_amb.tex)
+table_from_tpl, t($jcode/tex/r_tpl.tex) r($tmp/religion_amb.csv) o($out/religion_amb.tex)
 
 /* same judge */
 /* column 1 */
@@ -121,4 +121,4 @@ store_religion, name("col5") outcome("same_judge") label("Filing judge reached d
 reghdfe same_judge judge_nonmuslim def_nonmuslim judge_def_nonmuslim def_male judge_nm_def_men , absorb(loc_year acts judge) cluster(judge)
 store_religion, name("col6") outcome("same_judge") label("Filing judge reached decision")
 
-table_from_tpl, t($out/r_template.tex) r($tmp/religion_same_judge.csv) o($out/religion_same_judge.tex)
+table_from_tpl, t($jcode/tex/r_tpl.tex) r($tmp/religion_same_judge.csv) o($out/religion_same_judge.tex)

@@ -111,7 +111,7 @@ foreach x of var $cat {
 }
 
 /* write estimates to tables */
-table_from_tpl, t($out/balancetemp.tex) r($tmp/rbalance.csv) o($out/rbal.tex)     
+table_from_tpl, t($jcode/a/tpl/balance_tpl.tex) r($tmp/rbalance.csv) o($out/rbal.tex)     
 
 /* Gender */
 /* import dataset */
@@ -174,7 +174,7 @@ foreach x of var $cat {
 }
 
 /* write estimates to tables */
-table_from_tpl, t($out/balancetemp.tex) r($tmp/gbalance.csv) o($out/gbal.tex)     
+table_from_tpl, t($jcode/a/tpl/balance_tpl.tex) r($tmp/gbalance.csv) o($out/gbal.tex)     
 
 /***********************************/
 /* Prepare a dataset for coefplots */

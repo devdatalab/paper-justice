@@ -7,7 +7,7 @@ These code and data files replicate the results in "Measuring Gender and Religio
 ## Replication Code and Data for Judicial bias (India, 2021)
 To regenerate the tables and figures from the paper, take the following steps:
 
-* Download and unzip the replication data package from [here](https://drive.google.com/file/d/1_fxsCyAu_KfS_iFR18HvBoWJZUwrxGkr/view?usp=sharing)
+* Download and unzip the replication data package from [here](https://drive.google.com/drive/folders/1u56MFWELqkEtufhXFMV30ocFxe4Z6UJD?usp=sharing)
 
 * Open the do file `make_justice_results.do`, and set the globals `out`, `repdata`, `tmp`, and `jcode`.
 
@@ -26,4 +26,4 @@ To regenerate the tables and figures from the paper, take the following steps:
 
 ## Data download
 
-To download the data needed to replicate this paper in zipped tarball format, please [click here](https://drive.google.com/file/d/1_fxsCyAu_KfS_iFR18HvBoWJZUwrxGkr/view?usp=sharing).
+To download the data needed to replicate this paper in zipped tarball format, please [click here](https://drive.google.com/drive/folders/1u56MFWELqkEtufhXFMV30ocFxe4Z6UJD?usp=sharing).

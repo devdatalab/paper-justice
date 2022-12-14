@@ -28,6 +28,9 @@ if mi("$out") | mi("$tmp") | mi("$datapath, eg.$mining") {
 /* load Stata programs */
 qui do tools.do
 qui do justice_programs.do
+qui do masala-merge/masala_merge.do
+qui do state-tex/stata-tex.do
+qui do table_tpl.do
 
 /* add ado folder to adopath */
 adopath + ado

@@ -11,6 +11,6 @@ rolls. To classify religion, we use a database of 1.4 million names with a relig
 to classify name strings by gender is saved in [this zipped folder](https://drive.google.com/file/d/1LNEodnxcwczPGc8nixMkb58IljJDvm52/view?usp=sharing) as 
 `delhi_names_gender.hdf5`. For those interested in using the underlying religion classifier, we request you to get in touch with us for access.
 
-The gender classifier model and a sub-set of 10,000 random names have been provided in the classifier demonstration [data packet](https://drive.google.com/file/d/1LNEodnxcwczPGc8nixMkb58IljJDvm52/view?usp=sharing) to illustrate how the LSTM classifier built for our study works. These are called in by `classifier/classify_names.do` for name classification. 
+The gender classifier model and a sub-set of 10,000 random names have been provided in the classifier demonstration [data packet](https://drive.google.com/drive/folders/1VsWLt26vZ0oEkmxXByVNHcNrmtX6lBxm?usp=sharing) to illustrate how the LSTM classifier built for our study works. These are called in by `classifier/classify_names.do` for name classification. 
 
 Additional details about the LSTM network, underlying training data and accuracy measures can be found in our [paper here](http://paulnovosad.com/pdf/india-judicial-bias.pdf).

@@ -112,10 +112,10 @@ prog def table_from_tpl
   }
 
   /* check for deprecated path definition */
-  if mi("$STATATEX_PATH") & !mi("$PYTHONPATH") {
-      display as error "ERROR: global \$STATATEX_PATH not set, but \$PYTHONPATH is. \$PYTHONPATH is deprecated; please define \$STATATEX_PATH instead"
-      error -1
-  }
+  //if mi("$STATATEX_PATH") & !mi("$PYTHONPATH") {
+  //    display as error "ERROR: global \$STATATEX_PATH not set, but \$PYTHONPATH is. \$PYTHONPATH is deprecated; please define \$STATATEX_PATH instead"
+  //    error -1
+  //}
 
   /* check python file existence */
   cap confirm file `path'/table_from_tpl.py

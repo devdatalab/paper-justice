@@ -1,4 +1,4 @@
-# Errata
+# Errata 2023-11-07, REStat R&R
 
 In revising this paper for the Review of Economics and Statistics, we came across the following two errors, which we have been corrected in the latest version. Here, we describe the errors in detail and show how the code has changed.
 

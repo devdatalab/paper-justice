@@ -88,17 +88,15 @@ rsync $JDATA/cases_clean_2015.dta $DATATARGET/raw
 rsync $JDATA/cases_clean_2016.dta $DATATARGET/raw
 rsync $JDATA/cases_clean_2017.dta $DATATARGET/raw
 rsync $JDATA/cases_clean_2018.dta $DATATARGET/raw
-rsync $JDATA/cases_all_years.dta $DATATARGET/raw
 rsync $JDATA/judges_clean.dta $DATATARGET/raw
 rsync $JDATA/keys/disp_name_key.dta $DATATARGET/raw
 rsync $JDATA/classification/pooled_names_clean_appended.dta $DATATARGET/raw
 rsync $JDATA/lit_coefs.dta $DATATARGET/raw
-rsync $JDATA/justice_analysis.dta $DATATARGET/raw
 rsync $JDATA/keys/cases_district_key.dta $DATATARGET/raw
 rsync $JDATA/raw/ACLED_India_violence_2005-2023.csv $DATATARGET/raw
 rsync $JDATA/names/delhi_voter_list_unclean.dta $DATATARGET/raw
 rsync $JDATA/names/railway_names_unclean.dta $DATATARGET/raw
-rsync $JDATA/justice_same_names.dta $DATATARGET/raw
+rsync $JDATA/keys/pc11_court_district_key.dta $DATATARGET/raw
 rsync $JDATA/norms/1990/clean/poi_master.dta $DATATARGET/raw
 rsync $JDATA/keys/cases_state_key.dta $DATATARGET/raw
 

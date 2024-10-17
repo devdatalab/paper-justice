@@ -1,0 +1,33 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{lcccc}
+  \hline\hline
+   & \multicolumn{4}{c}{Defendant's lawyer}
+   &    & \multicolumn{2}{c}{\underline{Lawyer gender}} & \multicolumn{2}{c}{\underline{Lawyer religion}}       \\
+ & (1)      & (2)         & (3)             & (4)                       \\
+       & Female lawyer    & Female lawyer    & Muslim lawyer       & Muslim lawyer     \\
+  \hline
+  Female defendant   & $$mt_judge_female$$    & ---                                          & $$mm_judge_female$$    & $$mmu_judge_female$$    & $$mnm_judge_female$$    \\
+                                & ($$set_judge_female$$) &                                              & ($$sem_judge_female$$) & ($$semu_judge_female$$) & ($$senm_judge_female$$) \\
+  Muslim defendant                  & $$mt_judge_muslim$$    & $$mf_judge_muslim$$    &
+
+  
+  \hline
+  Observations & $$n_dfl$$ &  $$n_dfl$$ &  $$n_dml$$ &  $$n_dml$$ \\
+  
+  Fixed Effect & Court-month & Court-year  & Court-month & Court-year  \\
+  \hline\hline
+  
+   & \multicolumn{4}{l}{Petiotioner's lawyer}          \\  
+  \hline
+
+  
+  \hline
+  Observations & $$n_pfl$$ &  $$n_pfl$$ &  $$n_pml$$ &  $$n_pml$$ \\
+  
+  Fixed Effect & Court-month & Court-year  & Court-month & Court-year  \\
+  \hline\hline
+  
+  \hline\hline
+\end{tabular}
+}

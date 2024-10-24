@@ -23,6 +23,8 @@ global PYTHONPATH ~/ddl/stata-tex
 /* set globals for code and data */
 global jcode ~/ddl/paper-justice
 global jdata /scratch/muhtadi/justice/raw
+global out /scratch/muhtadi
+
 
 /* we skip the very slow analyses if this global is set to 1 */
 global fast 1

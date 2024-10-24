@@ -44,7 +44,7 @@ save $tmp/judge_fm, replace
 restore
 
 /* prepare poi data for masala merge */
-use $iec/norms/1990/clean/poi_master, clear
+use $norms/poi_master, clear
 
 /* drop norms, keeping only the POI classifications */
 ren (t_180 t_181 t_182 t_183 t_64 t_65) ///

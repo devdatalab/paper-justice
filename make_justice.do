@@ -24,7 +24,7 @@ global PYTHONPATH ~/ddl/stata-tex
 
 /* set globals for code and data */
 global jcode ~/ddl/paper-justice
-global jdata $tmp/justice/replication/raw
+global jdata /scratch/muhtadi/justice/replication/raw
 
 global norms $jdata
 

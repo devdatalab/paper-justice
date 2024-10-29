@@ -27,6 +27,8 @@ global jcode ~/ddl/paper-justice
 global jdata /dartfs-hpc/scratch/muhtadi/justice/replication/raw
 
 global norms $jdata
+global out /scratch/muhtadi
+
 
 /* we skip the very slow analyses if this global is set to 1 */
 global fast 1

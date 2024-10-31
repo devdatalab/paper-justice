@@ -69,19 +69,12 @@ do $jcode/b/build_lastname_analysis.do
 do $jcode/b/create_riots_indicators.do
 di c(current_time)
 
-/* Clean Delhi voter rolls list and railway names for table A2 */
-do $jcode/b/clean_delhi_voter_list.do
-do $jcode/b/clean_railway_names.do
-
-if ($fast == 0) {
-
-  /* clean up POI data */
-  do $jcode/b/prep_poi_data.do
+/* clean up POI data */
+do $jcode/b/prep_poi_data.do
   
-  /* prep caste categories in POI dataset */
-  do $jcode/b/prep_poi_caste_names.do
-  
-  }
+/* prep caste categories in POI dataset */
+do $jcode/b/prep_poi_caste_names.do
+
 /*******************************/
 /* ANALYSIS - TABLES & FIGURES */
 /*******************************/
@@ -95,24 +88,23 @@ timer on 1
 /* Table 2: Outcome probability, by judge identity (summary stat) */
 do $jcode/a/judge_summary.do
 
-/* Table 3: Test for random assignment to judges */
-do $jcode/a/table_balance.do
-
-/* Table Ax: Balance table for the lawyer subsample */
-do $jcode/a/table_balance_lawyers.do
-
 /* Tables A3 & A4: Summary stats by defendant characteristics*/
 do $jcode/a/summary_stats.do
 di c(current_time)
+
 /* Fig 1: Coefplots */
 python script $jcode/a/py/make_gender_coefplot.py
 python script $jcode/a/py/make_gender_coefplot2.py
 python script $jcode/a/py/make_religion_coef.py
 python script $jcode/a/py/make_religion_coef2.py
 di c(current_time)
+
 /* Tables 5, A6, A8: RCT gender results */
 do $jcode/a/table_rct_gender.do
 do $jcode/a/table_victim_ramadan.do
+
+/* creates tables for bias by lawyer identity */
+do $jcode/a/table_rct_lawyers.do
 
 /* Tables 6, A7, A9: RCT religion results */
 do $jcode/a/table_rct_religion.do
@@ -124,6 +116,13 @@ di c(current_time)
 /* Appendix: validation of LSTM muslim classifier */
 // Commented, since it does not produce any outputs used by the paper
 // do $jcode/a/validate_lstm_muslim.do
+
+/* Table 3: Test for random assignment to judges */
+/* Note: this needs to come below table_rct_lawyer.do */
+do $jcode/a/table_balance.do
+
+/* Table Ax: Balance table for the lawyer subsample */
+do $jcode/a/table_balance_lawyers.do
 
 /* Appendix: court size distribution */
 do $jcode/a/graph_court_size.do
@@ -140,7 +139,8 @@ di c(current_time)
 //python script $jcode/a/py/crime_type_coefplot.py
 
 /* Appendix: Summary stats of datasets used to train the name classifier */
-do $jcode/a/training_sum_stats.do
+/* Not in replication package to preserve privacy of individual names */
+// do $jcode/a/training_sum_stats.do
 
 /* Appendix: Statewise religious in group bias tables */
 do $jcode/a/table_rct_statewise.do
@@ -207,9 +207,6 @@ if ($fast == 0) {
 
 /* last name analysis including unmatched names */
 do $jcode/a/test_same_lastname_unmatched.do
-
-/* creates tables for bias by lawyer identity */
-do $jcode/a/table_rct_lawyers.do
 
 /* partition into different year bins */
 do $jcode/a/table_rct_by_year.do

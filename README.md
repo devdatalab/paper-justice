@@ -9,6 +9,13 @@ To regenerate the tables and figures from the paper, take the following steps:
 
 * Download and unzip the replication data package from [here](https://drive.google.com/drive/folders/1u56MFWELqkEtufhXFMV30ocFxe4Z6UJD?usp=sharing)
 
+* Create a python environment following the package list in `requirements.yml`. For example:
+
+```
+conda env create -f requirements.yml -n py_justice
+conda activate py_justice
+```
+
 * Open the do file `make_justice_results.do`, and set the globals `out`, `repdata`, `tmp`, and `jcode`.
 
 1. `$out` is the target folder for all outputs, such as tables and graphs.

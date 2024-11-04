@@ -29,11 +29,6 @@ global jdata /dartfs-hpc/scratch/muhtadi/justice/replication/raw
 global norms $jdata
 global out /scratch/muhtadi
 
-
-/* we skip the very slow analyses if this global is set to 1 */
-global fast 1
-global py_spatial 0
-
 /* timestamp so we know how long this takes */
 di c(current_date)
 di c(current_time)
@@ -149,10 +144,6 @@ do $jcode/a/table_rct_statewise.do
 /* New analyses  */
 /*****************/
 
-/* [1.3h] victim identity and ramadan analysis */
-// CODE FILE NO LONGER EXISTS
-// do $jcode/a/table_victim_mismatch.do
-
 /* last name test */
 do $jcode/a/test_same_lastname.do
 
@@ -162,19 +153,7 @@ di c(current_time)
 timer off 1
 timer list
 
-/* note that environment py_spatial should be activated */
-/* for script below to run */
-if "$py_spatial" == "1" {
-  python script $jcode/a/py/court_count_maps.py
-}
-di c(current_time)
-
-/* compile main statistics in the paper */
-/* compare to what they were on September 22 */
-/* UPDATE THIS --> Last run on : September 24, 2021 */
-// PN: fails Oct 5, 2023
-// make_paper_stats using $out/justice_paper_stats.csv, ///
-// title("Validate justice statistics") comparison_date("22 Sep 2021") 
+python script $jcode/a/py/court_count_maps.py
 
 /***************************/
 /* New analysis 06/10/2022 */
@@ -199,11 +178,8 @@ do $jcode/a/table_sample_representativeness.do
 /* extended balance analysis */
 do $jcode/a/table_balance_extended.do
 
-di c(current_time)
-if ($fast == 0) {
-  /* extended last name analysis */
-  do $jcode/a/test_same_lastname_app.do
-}
+/* extended last name analysis */
+do $jcode/a/test_same_lastname_app.do
 
 /* last name analysis including unmatched names */
 do $jcode/a/test_same_lastname_unmatched.do

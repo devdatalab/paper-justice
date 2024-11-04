@@ -16,6 +16,13 @@ conda env create -f requirements.yml -n py_justice
 conda activate py_justice
 ```
 
+* Set the environment variables so that Python will be able to find the data and output paths. From the Unix/OSX shell (before running Stata):
+
+```
+export TMP=[path to working files]
+export OUT=[destination path for exhibits]
+```
+
 * Open the do file `make_justice_results.do`, and set the globals `out`, `repdata`, `tmp`, and `jcode`.
 
 1. `$out` is the target folder for all outputs, such as tables and graphs.

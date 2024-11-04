@@ -153,7 +153,8 @@ di c(current_time)
 timer off 1
 timer list
 
-python script $jcode/a/py/court_count_maps.py
+// Omit court maps from replication, since they require restricted MLInfoMap district shapefile
+// python script $jcode/a/py/court_count_maps.py
 
 /***************************/
 /* New analysis 06/10/2022 */

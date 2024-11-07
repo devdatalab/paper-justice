@@ -1,0 +1,19 @@
+study,name,outcome,coef,se,outcome_mean,outcome_sd
+"Lim, Silveira, and Snyder (2016)",Racial bias in trial court outcomes (Texas N=228557),harshness of sentence,0.0022,0.003,0.31,0.33
+Stephanie Holmes Didwania,Prosecutor gender (US N=131462),offense severity,0.46,0.136,19.9,10.1
+Carly Will Sloan,Prosecutor bias in property crimes (New York N=29815),prob. conviction,0.0537,0.0142,0.615,0.49
+Matthew Knepper (2018),Workplace sex discrimination cases (US N=1020),judge grants motion,0.056,0.024,0.888,0.32
+"Oren Gazal-Ayal and Raanan Sulitzeanu-Kenan",Bail hearings (Israel N=1229) ,prob. of bail,0.0835,0.037,0.27,0.44
+"B Depew, O Eren, N Mocan (2017)",Juvenile crimes (Texas N=5142),prob. placed in custody,-0.136,0.063,0.22,0.41
+"Anwar, Bayer et al (2012)",Racial bias in all white juries (US N=712),conviction rate,0.166,0.074,0.73,0.44
+Shayo Zussman ,Small claims courts (Israel N=1748),prob. wins case,0.192,0.049,0.73,0.44
+Grossman et al,Criminal appeals (Israel N=450),appeal granted,0.224,0.066,0.345,0.48
+ash-a,Table 3-gender                              ,,0.0012                    ,0.0016 
+ash-b,Table 4-religion                             ,,0.0013                   ,0.0022 
+ash-c,Table 6-same name                            ,,0.0006                   ,0.0013 
+ash-d,Table 5-gender mismatch                      ,,-0.0059                  ,0.0053 
+ash-e,Table 5-religion mismatch                    ,,0.0086                  ,0.008
+ash-f,Table 5-gender crimes against women          ,,-0.009                  ,0.0118 
+ash-g,Table 5-religion during ramadan             ,,0.0013                   ,0.0102
+ash-g,Table 5-religion during hindu festivals             ,,-0.0078                   ,0.0079
+ash-h,Table 6-same name*rare name                            ,,0.0212                   ,0.0142 

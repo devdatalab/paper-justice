@@ -58,7 +58,7 @@ export OUT=[destination path for exhibits]
 export JDATA=[folder where the replication data package is unzipped]
 ```
 
-* Open the do file `make_justice.do`, and set the globals `out`, `repdata`, `tmp`, and `jcode`. These need to match the environment variables set in the previous step!
+* Open the do file `make_justice.do`, and set the globals `out`, `jdata`, `tmp`, and `jcode`. These need to match the environment variables set in the previous step!
 
 1. `$out` is the target folder for all outputs, such as tables and graphs.
 2. `$tmp` is the folder for the data files and temporary data files that will be created during the rebuild.

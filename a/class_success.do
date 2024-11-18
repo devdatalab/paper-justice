@@ -26,7 +26,7 @@ format Gender Religion %03.2f
 /* export dataset as nice latex table */
 estpost tabstat Gender Religion, by(state_name)
 
-esttab using $out/class_success.tex, cells("Gender(fmt(%03.2f)) Religion(fmt(%03.2f))") noobs  ///
+cap esttab using $out/class_success.tex, cells("Gender(fmt(%03.2f)) Religion(fmt(%03.2f))") noobs  ///
     varwidth(30) drop(Total) ///
      tex replace nonumbers nomtitle 
 

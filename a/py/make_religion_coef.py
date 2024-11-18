@@ -9,6 +9,12 @@ from pathlib import Path
 TMP = Path(os.environ.get('TMP'))
 IEC = Path(os.environ.get('IEC'))
 
+# If OUT exists, use it, otherwise use ~/iec/output/judicial_bias
+if 'OUT' in os.environ:
+    OUT = Path(os.environ['OUT'])
+else:
+    OUT = IEC / "output" / "judicial_bias"
+
 mpl.rcParams['mathtext.fontset'] = 'custom'
 mpl.rcParams['mathtext.rm'] = 'Bitstream Vera Sans'
 mpl.rcParams['mathtext.it'] = 'Bitstream Vera Sans:italic'
@@ -104,11 +110,6 @@ ax.set_ylim([-0.8,11])
 #ax.set_title("C: Muslim charged % : Muslim population %", fontsize=36, fontweight = "bold", color="black")
 
 # save figure
-plt.savefig(os.path.join(IEC, "output", "judicial_bias", "r_coef1.png"), bbox_inches="tight", dpi=150)
-
-# copy file for public html viewing
-home = os.path.expanduser("~")
-copyfile(os.path.join(IEC, "output", "judicial_bias", "r_coef1.png"),
-         os.path.join(home, "public_html", "png", "r_coef1.png"))
+plt.savefig(os.path.join(OUT, "r_coef1.png"), bbox_inches="tight", dpi=150)
 
 plt.close("all")

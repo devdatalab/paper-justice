@@ -39,7 +39,7 @@ The file `make_justice.do` describes the build and analysis process in detail.
 ## Instruction to Replicators
 To regenerate the tables and figures from the paper, take the following steps:
 
-* Download and unzip the replication data package from [here](https://drive.google.com/drive/folders/1u56MFWELqkEtufhXFMV30ocFxe4Z6UJD?usp=sharing). To download, you may need this file.id=`1_fxsCyAu_KfS_iFR18HvBoWJZUwrxGkr` (not the hyperlink to the google drive folder).
+* Download and unzip the replication data package from [here](https://drive.google.com/drive/folders/1u56MFWELqkEtufhXFMV30ocFxe4Z6UJD?usp=sharing). To download using a command-line tool, you may need this file.id=`1_fxsCyAu_KfS_iFR18HvBoWJZUwrxGkr` (not the hyperlink to the google drive folder).
 
 
 * Clone this repo (github) or copy all the code into a folder.

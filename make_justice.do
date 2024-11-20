@@ -36,6 +36,9 @@ di c(current_time)
 /* load justice programs */
 do $jcode/justice_progs
 
+/* load custom stata programs */
+do $jcode/tools.do
+
 /***********************************************************/
 /* Step 4: Prepare analysis datasets for RCT & event study */
 /***********************************************************/

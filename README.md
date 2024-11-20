@@ -39,7 +39,8 @@ The file `make_justice.do` describes the build and analysis process in detail.
 ## Instruction to Replicators
 To regenerate the tables and figures from the paper, take the following steps:
 
-* Download and unzip the replication data package from [here](https://drive.google.com/drive/folders/1u56MFWELqkEtufhXFMV30ocFxe4Z6UJD?usp=sharing)
+* Download and unzip the replication data package from [here](https://drive.google.com/drive/folders/1u56MFWELqkEtufhXFMV30ocFxe4Z6UJD?usp=sharing). To download using a command-line tool, you may need this file.id=`1_fxsCyAu_KfS_iFR18HvBoWJZUwrxGkr` (not the hyperlink to the google drive folder).
+
 
 * Clone this repo (github) or copy all the code into a folder.
 
@@ -58,7 +59,7 @@ export OUT=[destination path for exhibits]
 export JDATA=[folder where the replication data package is unzipped]
 ```
 
-* Open the do file `make_justice.do`, and set the globals `out`, `repdata`, `tmp`, and `jcode`. These need to match the environment variables set in the previous step!
+* Open the do file `make_justice.do`, and set the globals `out`, `jdata`, `tmp`, and `jcode`. These need to match the environment variables set in the previous step!
 
 1. `$out` is the target folder for all outputs, such as tables and graphs.
 2. `$tmp` is the folder for the data files and temporary data files that will be created during the rebuild.

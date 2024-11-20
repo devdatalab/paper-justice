@@ -129,12 +129,15 @@ save $tmp/riot_definitions, replace
 replace admin2 = strlower(admin2)
 
 /* name admin2 pc11_district_name to clean up district names */
-ren (admin1 admin2)  (acled_state_name pc11_district_name)
+ren (admin1 admin2)  (acled_state_name acled_district_name)
 
-/* fix strings */
-fix_place_names, place(district) year(11)
+/* get pc11 district name */
+merge m:1 acled_state_name acled_district_name using $jdata/acled_district_key
+assert _merge == 3
+drop _merge
 
-/* change name back to not confuse with shrug pc11_district_name  */
+/* switch name back to not confuse with shrug pc11_district_name  */
+drop acled_district_name
 ren pc11_district_name acled_district_name
 
 /* switch back to uppercase */

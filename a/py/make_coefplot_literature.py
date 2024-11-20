@@ -10,12 +10,24 @@ from pathlib import Path
 TMP = Path(os.environ.get('TMP'))
 IEC = Path(os.environ.get('IEC'))
 
+# If OUT exists, use it, otherwise use ~/iec/output/judicial_bias
+if 'OUT' in os.environ:
+    OUT = Path(os.environ['OUT'])
+else:
+    OUT = IEC / "output" / "judicial_bias"
+
+# If JDATA exists, use it, otherwise use ~/iec/justice
+if 'JDATA' in os.environ:
+    JDATA = Path(os.environ['JDATA'])
+else:
+    JDATA = IEC / "justice"
+    
 ###############################
 # PREPARE THE DATA            #
 ###############################
 
 # read in the data
-df = pd.read_stata(os.path.join(IEC, "justice/lit_coefs.dta"))
+df = pd.read_stata(os.path.join(JDATA, "lit_coefs.dta"))
 
 # put the values we want to use in the 'coef' and 'se' fields (even though other stuff is currently there)
 df.coef = df.std_effect_size
@@ -103,11 +115,5 @@ plt.xlabel("Standardized In-group Bias Effect", fontsize = 24)
 # ax.set_title("Point estimates of judicial in-group bias in the literature", fontsize=18, fontweight = "bold", color="black")
 
 # save figure
-plt.savefig(os.path.join(IEC, "output", "judicial_bias", "lit_coef.png"), bbox_inches="tight", dpi=150)
-
-# copy file for public html viewing
-home = os.path.expanduser("~")
-copyfile(os.path.join(IEC, "output", "judicial_bias", "lit_coef.png"),
-         os.path.join(home, "public_html", "png", "lit_coef.png"))
-
+plt.savefig(os.path.join(OUT, "lit_coef.png"), bbox_inches="tight", dpi=150)
 plt.close("all")

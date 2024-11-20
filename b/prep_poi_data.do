@@ -49,7 +49,7 @@ use $norms/poi_master, clear
 /* drop norms, keeping only the POI classifications */
 ren (t_180 t_181 t_182 t_183 t_64 t_65) ///
     (brahm kshat vaish shudr sc st)
-drop t_*
+capture drop t_*
 
 /* only keep lastnames that are mapped to a */
 /* single community within a state */

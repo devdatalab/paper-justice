@@ -27,6 +27,9 @@ global jcode ~/ddl/paper-justice
 global jdata /dartfs-hpc/scratch/muhtadi/justice/replication/raw
 
 global norms $jdata
+global MASALA_PATH ~/paper-justice/masala-merge
+global STATATEX_PATH ~/paper-justice/stata-tex
+
 global out /scratch/muhtadi
 
 /* timestamp so we know how long this takes */
@@ -38,6 +41,9 @@ do $jcode/justice_progs
 
 /* load custom stata programs */
 do $jcode/tools.do
+
+do $jcode/masala-merge/masala-merge/masala-merge.do
+do $jcode/stata-tex/stata-tex/stata-tex.do
 
 /***********************************************************/
 /* Step 4: Prepare analysis datasets for RCT & event study */

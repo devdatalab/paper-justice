@@ -39,7 +39,7 @@ The file `make_justice.do` describes the build and analysis process in detail.
 ## Instruction to Replicators
 To regenerate the tables and figures from the paper, take the following steps:
 
-* Download and unzip the replication data package from [here](https://drive.google.com/drive/folders/1u56MFWELqkEtufhXFMV30ocFxe4Z6UJD?usp=sharing).
+* Download and unzip the replication data package from [here](https://www.dropbox.com/scl/fo/cfq579yumprye6t9l1h0j/AL6Xo6LLZ7WcYHBgqODdbm4?rlkey=aq0v86upxy21qi0q8lji2j97i&st=9gofrsko&dl=0).
 
 * Clone this repo (github) or copy all the code into a folder.
 
@@ -75,52 +75,50 @@ export JDATA=[folder where the replication data package is unzipped]
 
 The mapping of do files to tables and figures is as follows:
 
-| Exhibit   | Do Filename    | Output Filename       |
+| Exhibit | Code filename                    | Output                             Filename                    |
 |-----------|----------------|-----------------------|
-| Figure 1  | ** | g_coef1.png ; g_coef2.png ; r_coef1.png ; r_coef2.png  |
-| Table 1   | judge_summary.do  | judge_summary.tex  |
-| Table 2   | table_rct_gender.do | gender_acquitted.tex ; gender_decision.tex  |
-| Table 3   | table_rct_religion.do | religion_acquitted.tex ; religion_decision.tex |
-| Table 4   | table_victim_ramadan.do | victim_inter.tex |
-| Table 5   | test_same_lastname.do | last_names.tex |
-| Figure 2  | prep_lit_coefs.do ; graph_scatter_pub_bias.do | lit_coef.png ; pub_bias.png |
-| Table 6   | graph_scatter_pub_bias.do  | pub_bias.tex |
-| Figure A5 | explore_discretion.do | judge_acquittal_resids.png |
-| Table A1  | ** | training_dist.tex |
-| Figure A6 | test_same_lastname_app.do | name_balance_coef_rcap.png |
-| Figure A7 | test_same_lastname_app.do | rare_names_weighted.png ; rare_names_unweighted.png |
-| Table A2  | ** | table_crime_in_sample.tex ; table_state_in_sample.tex |
-| Table A3  | class_success.do | class_success.tex |
-| Table A4  | ** | dispositions.png |
-| Table A5  | robustness_checks.do | gender_amb.tex |
-| Table A6  | robustness_checks.do | religion_amb.tex |
-| Table A7  | table_rct_gender.do | gender_non_convicted.tex |
-| Table A8  | table_rct_gender.do | gender_acquitted_amb.tex |
-| Table A9  | table_rct_religion.do | religion_non_convicted.tex |
-| Table A10 | table_rct_religion.do | religion_acquitted_amb.tex |
-| Table A11 | summary_stats.do | gbal.tex |
-| Table A12 | summary_stats.do | rbal.tex |
-| Table A13 | ** | output_sample_accounting_1.tex |
-| Table A14 | ** | output_sample_accounting_2.tex |
-| Table A15 | table_balance_extended.do | balance_extended_missing.tex |
-| Table A16 | table_balance_extended.do | balance_extended_lawyers.tex |
-| Table A17 | ** | table_judges_by_crime_category.tex |
-| Table A18 | explore_ambiguity.do | low_ambiguity_rcts.tex |
-| Table A19 | table_balance_lawyers.do | balance_lawyers.tex |
-| Table A20 | table_rct_lawyers.do | lawyers_religion.tex |
-| Table A21 | table_rct_lawyers.do | lawyers_gender.tex |
-| Table A22 | table_victim_ramadan.do | victim_inter_all_g.tex |
-| Table A23 | table_victim_ramadan.do | victim_inter_all_r.tex |
-| Table A24 | crimes_against_women.do | crimes_against_women.tex |
-| Table A25 | table_victim_ramadan.do | victim_inter_cy.tex |
-| Table A26 | table_rct_by_year.do | rct_2year_bins.tex |
-| Table A27 | ** | table_election_month.tex |
-| Table A28 | test_same_lastname.do | last_names_loc_year.tex |
-| Table A29 | test_same_lastname_app.do | surname_freq_table.tex |
-| Table A30 | ** | table_balance_poi.tex |
-| Table A31 | table_ingroup_poi.do | table_ingroup_poi.tex |
-| Table B1  | table_balance.do | random_acq.tex |
+| Figure  1  |   make_gender_coefplot.py     | g_coef1.png, g_coef2.png, r_coef1.png, r_coef2.png |
+| Table   1   |  judge_summary.do            | judge_summary.tex                  |
+| Table   2   |  table_rct_gender.do         | gender_acquitted.tex               , gender_decision.tex       |
+| Table   3   |  table_rct_religion.do       | religion_acquitted.tex             , religion_decision.tex     |
+| Table   4   |  table_victim_ramadan.do     | victim_inter.tex                   |
+| Table   5   |  test_same_lastname.do       | last_names.tex                     |
+| Figure  2  |   prep_lit_coefs.do           , graph_scatter_pub_bias.do          | lit_coef.png              , pub_bias.png |
+| Table   6   |  graph_scatter_pub_bias.do   | pub_bias.tex                       |
+| Figure  A5     | explore_discretion.do     | judge_acquittal_resids.png         |
+| Figure  A6     | test_same_lastname_app.do | name_balance_coef_rcap.png         |
+| Figure  A7     | test_same_lastname_app.do | rare_names_weighted.png            , rare_names_unweighted.png |
+| Table   A2     | table_sample_representativeness.do | table_crime_in_sample.tex          , table_state_in_sample.tex |
+| Table   A3     | class_success.do          | class_success.tex                  |
+| Table   A5     | robustness_checks.do      | gender_amb.tex                     |
+| Table   A6     | robustness_checks.do      | religion_amb.tex                   |
+| Table   A7     | table_rct_gender.do       | gender_non_convicted.tex           |
+| Table   A8     | table_rct_gender.do       | gender_acquitted_amb.tex           |
+| Table   A9     | table_rct_religion.do     | religion_non_convicted.tex         |
+| Table   A10    | table_rct_religion.do     | religion_acquitted_amb.tex         |
+| Table   A11    | summary_stats.do          | gbal.tex                           |
+| Table   A12    | summary_stats.do          | rbal.tex                           |
+| Table   A13    | table_rct_statewise.do                        | output_sample_accounting_1.tex     |
+| Table   A14    | table_rct_statewise.do                        | output_sample_accounting_2.tex     |
+| Table   A15    | table_balance_extended.do | balance_extended_missing.tex       |
+| Table   A16    | table_balance_extended.do | balance_extended_lawyers.tex       |
+| Table   A17    | table_judge_type_by_crime_cat.do                        | table_judges_by_crime_category.tex |
+| Table   A18    | explore_ambiguity.do      | low_ambiguity_rcts.tex             |
+| Table   A19    | table_balance_lawyers.do  | balance_lawyers.tex                |
+| Table   A20    | table_rct_lawyers.do      | lawyers_religion.tex               |
+| Table   A21    | table_rct_lawyers.do      | lawyers_gender.tex                 |
+| Table   A22    | table_victim_ramadan.do   | victim_inter_all_g.tex             |
+| Table   A23    | table_victim_ramadan.do   | victim_inter_all_r.tex             |
+| Table   A24    | crimes_against_women.do   | crimes_against_women.tex           |
+| Table   A25    | table_victim_ramadan.do   | victim_inter_cy.tex                |
+| Table   A26    | table_rct_by_year.do      | rct_2year_bins.tex                 |
+| Table   A27    | tables_election_month.do                        | table_election_month.tex           |
+| Table   A28    | test_same_lastname.do     | last_names_loc_year.tex            |
+| Table   A29    | test_same_lastname_app.do | surname_freq_table.tex             |
+| Table   A30    | table_ingroup_poi.do                        | table_balance_poi.tex              |
+| Table   A31    | table_ingroup_poi.do      | table_ingroup_poi.tex              |
+| Table   B1     | table_balance.do          | random_acq.tex                     |
 
 ## Data download
 
-To download the data needed to replicate this paper in zipped tarball format, please [click here](https://drive.google.com/drive/folders/1u56MFWELqkEtufhXFMV30ocFxe4Z6UJD?usp=sharing).
+The data to replicate this paper is available at this link: [click here](https://www.dropbox.com/scl/fo/cfq579yumprye6t9l1h0j/AL6Xo6LLZ7WcYHBgqODdbm4?rlkey=aq0v86upxy21qi0q8lji2j97i&st=9gofrsko&dl=0).

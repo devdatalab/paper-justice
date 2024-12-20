@@ -37,9 +37,10 @@ The file `make_justice.do` describes the build and analysis process in detail.
 
 ---
 ## Instruction to Replicators
+
 To regenerate the tables and figures from the paper, take the following steps:
 
-* Download and unzip the replication data package from [here](https://www.dropbox.com/scl/fo/cfq579yumprye6t9l1h0j/AL6Xo6LLZ7WcYHBgqODdbm4?rlkey=aq0v86upxy21qi0q8lji2j97i&st=9gofrsko&dl=0).
+* Download and unzip the replication data package linked at the end of this document
 
 * Clone this repo (github) or copy all the code into a folder.
 
@@ -121,4 +122,8 @@ The mapping of do files to tables and figures is as follows:
 
 ## Data download
 
-The data to replicate this paper is available at this link: [click here](https://www.dropbox.com/scl/fo/cfq579yumprye6t9l1h0j/AL6Xo6LLZ7WcYHBgqODdbm4?rlkey=aq0v86upxy21qi0q8lji2j97i&st=9gofrsko&dl=0).
+The data to replicate this paper is available on [Google Drive](https://drive.google.com/file/d/1EyzRgvnQF-l-X22LLLgW8SE4m-t8zJb2/view?usp=drive_link) and at the Harvard Dataverse.
+
+* The Google Drive version is recommended, because Harvard Dataverse requires us to split up the files in strange ways. If you download from the Harvard Dataverse, you need to: (1) unzip all case files separately into the `raw/` subfolder; (2) recombine the large 2018 case file: `cat cases_clean_2018_part_* > cases_clean_2018.zip` and put it into the `raw/` subfolder.
+
+* The Harvard Dataverse version is currently under revision. In the interim, please use the Google Drive link, and we will update this page once the Dataverse dataset has been approved.

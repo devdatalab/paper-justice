@@ -127,3 +127,41 @@ The data to replicate this paper is available on [Google Drive](https://drive.go
 * The Google Drive version is recommended, because Harvard Dataverse requires us to split up the files in strange ways. If you download from the Harvard Dataverse, you need to: (1) unzip all case files separately into the `raw/` subfolder; (2) recombine the large 2018 case file: `cat cases_clean_2018_part_* > cases_clean_2018.zip` and put it into the `raw/` subfolder.
 
 * The Harvard Dataverse version is currently under revision. In the interim, please use the Google Drive link, and we will update this page once the Dataverse dataset has been approved.
+
+* The layout of data files should look like this when everything is unzipped. `$jdata` should point to the `raw` folder with the `*` below.
+
+```
+.
+├── out
+├── raw*
+│   ├── acled_district_key.dta
+│   ├── acled_districts.dta
+│   ├── ACLED_India_violence_2005-2023.csv
+│   ├── cases_clean_2010.dta
+│   ├── cases_clean_2011.dta
+│   ├── cases_clean_2012.dta
+│   ├── cases_clean_2013.dta
+│   ├── cases_clean_2014.dta
+│   ├── cases_clean_2015.dta
+│   ├── cases_clean_2016.dta
+│   ├── cases_clean_2017.dta
+│   ├── cases_clean_2018.dta
+│   ├── cases_state_key.dta
+│   ├── classification
+│   │   └── pooled_names_clean_appended.dta
+│   ├── judges_clean.dta
+│   ├── keys
+│   │   ├── acled_district_key.dta
+│   │   ├── cases_district_key.dta
+│   │   ├── cases_state_key.dta
+│   │   ├── disp_name_key.dta
+│   │   ├── pc11_court_district_key.dta
+│   │   ├── purpose_name_key.dta
+│   │   └── type_name_key.dta
+│   ├── lit_coefs.dta
+│   ├── names
+│   ├── poi_master.dta
+│   └── raw
+│       └── ACLED_India_violence_2005-2023.csv
+└── tmp
+```

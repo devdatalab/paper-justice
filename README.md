@@ -122,11 +122,9 @@ The mapping of do files to tables and figures is as follows:
 
 ## Data download
 
-The data to replicate this paper is available on [Google Drive](https://drive.google.com/file/d/1EyzRgvnQF-l-X22LLLgW8SE4m-t8zJb2/view?usp=drive_link) and at the Harvard Dataverse.
+The data to replicate this paper is available on [Google Drive](https://drive.google.com/file/d/1EyzRgvnQF-l-X22LLLgW8SE4m-t8zJb2/view?usp=drive_link) and at the [Harvard Dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/GHLGSW).
 
 * The Google Drive version is recommended, because Harvard Dataverse requires us to split up the files in strange ways. If you download from the Harvard Dataverse, you need to: (1) unzip all case files separately into the `raw/` subfolder; (2) recombine the large 2018 case file: `cat cases_clean_2018_part_* > cases_clean_2018.zip` and put it into the `raw/` subfolder.
-
-* The Harvard Dataverse version is currently under revision. In the interim, please use the Google Drive link, and we will update this page once the Dataverse dataset has been approved.
 
 * The layout of data files should look like this when everything is unzipped. `$jdata` should point to the `raw` folder with the `*` below.
 
